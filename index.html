@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <title>War-o-Mat</title>
+        <style>
+            :root {
+                /* Overengineered Automagic Color ahead! */
+                
+                --primary-chroma: 0.1; /* 0.114 */
+                --primary-hue: 123.11deg;
+                --primary-ch: var(--primary-chroma) var(--primary-hue);
+
+                --secondary-chroma: calc(var(--primary-chroma) / 3.0);
+                --secondary-hue: var(--primary-hue);
+                --secondary-ch: var(--secondary-chroma) var(--secondary-hue);
+
+                --tertiary-chroma: calc(var(--primary-chroma) / 2.0);
+                --tertiary-hue: calc(var(--primary-hue) + 130deg);
+                --tertiary-ch: var(--tertiary-chroma) var(--tertiary-hue);
+
+                --neutral-chroma: calc(min(var(--primary-chroma) / 12, 0.02)); 
+                --neutral-hue: var(--primary-hue);
+                --neutral-ch: var(--neutral-chroma) var(--neutral-hue);
+
+                --neutral-variant-chroma: calc(var(--neutral-chroma) * 2.0);
+                --neutral-variant-hue: var(--neutral-hue);
+                --neutral-variant-ch: var(--neutral-variant-chroma) var(--neutral-variant-hue);
+
+
+                /* Color Roles */
+
+                --color-primary: oklch(47.45% var(--primary-ch));
+                --color-on-primary: oklch(100% var(--primary-ch));
+
+                --color-primary-container: oklch(90% var(--primary-ch));
+                --color-on-primary-container: oklch(40% var(--primary-ch));
+
+                --color-secondary-container: oklch(90% var(--secondary-ch));
+                --color-on-secondary-container: oklch(40% var(--secondary-ch));
+
+                --color-tertiary-container: oklch(90% var(--tertiary-ch));
+                --color-on-tertiary-container: oklch(40% var(--tertiary-ch));
+
+                --color-surface: oklch(98% var(--neutral-ch));
+                --color-surface-container-lowest: oklch(100% var(--neutral-ch));;
+                --color-surface-container-low: oklch(96% var(--neutral-ch));
+                --color-surface-container: oklch(94% var(--neutral-ch));
+
+                --color-on-surface: oklch(20% var(--neutral-ch));
+                --color-on-surface-variant: oklch(40% var(--neutral-variant-ch));
+                
+
+                --color-outline: oklch(50% var(--neutral-variant-ch));
+
+
+                /* Component Colors */
+
+                --comp-question-background-color: var(--color-surface-container-low);
+                --comp-option_button-background-color: var(--color-surface-container);
+                --comp-option_button-on-background-color: var(--color-on-surface);
+                --comp-option_button-background-active-color: var(--color-primary-container);
+                --comp-option_button-on-background-active-color: var(--color-on-primary-container);
+
+
+                --comp-jumpnav-outline: var(--color-outline);
+                --comp-jumpnav-outline-active: var(--color-primary);
+                --comp-jumpnav-background-color: var(--color-surface-container);
+                --comp-jumpnav-on-background-color: var(--color-on-surface);    
+                --comp-jumpnav-background-color-done: var(--color-primary-container); 
+                --comp-jumpnav-on-background-color-done: var(--color-on-primary-container);
+
+
+                accent-color: var(--color-primary);
+
+                font-family: sans-serif;
+            }
+
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    color-scheme: dark;
+
+                    --color-primary: oklch(80% var(--primary-ch));
+                    --color-on-primary: oklch(40% var(--primary-ch));
+
+                    --color-primary-container: oklch(40% var(--primary-ch));
+                    --color-on-primary-container: oklch(90% var(--primary-ch));
+
+                    --color-secondary-container: oklch(40% var(--secondary-ch));
+                    --color-on-secondary-container: oklch(90% var(--secondary-ch));
+
+                    --color-tertiary-container: oklch(40% var(--tertiary-ch));
+                    --color-on-tertiary-container: oklch(90% var(--tertiary-ch));
+
+                    --color-surface: oklch(20% var(--neutral-ch));
+                    --color-surface-container-lowest: oklch(15% var(--neutral-ch));
+                    --color-surface-container-low: oklch(22% var(--neutral-ch));
+                    --color-surface-container: oklch(24% var(--neutral-ch));
+                    --color-on-surface: oklch(90% var(--neutral-ch));
+                    --color-on-surface-variant: oklch(90% var(--neutral-variant-ch));
+
+                    --color-outline: oklch(60% var(--neutral-variant-ch));
+                }
+            }
+
+            @media (prefers-reduced-motion: none) {
+                * {
+                    transition: none;
+                }
+            }
+
+            * {
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            ol {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            body {
+                background-color: var(--color-surface);
+                color: var(--color-on-surface);
+                /* min-height: 100svh; */
+                width: 100%; 
+                margin-inline: auto;
+                max-width: 800px;
+                display: grid;
+                gap: 8px;
+            }
+
+
+            li:has(wom-question) {
+                transition: opacity 300ms;
+            }
+
+            li:has(wom-question.active) {
+                opacity: 1;
+            }
+            li:has(wom-question:not(.active)) {
+                opacity: 0; 
+                pointer-events: none;
+                content-visibility: hidden;
+            }
+
+            .question-list {
+                position: relative;
+            }
+
+            .question-list > * {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+            }
+
+            .question-list > :not(:last-child){
+                margin-bottom: 1em;
+            }
+
+            #jumpnav {
+                display: flex;
+                gap: 4px;
+            }
+
+            #jumpnav > li {
+                margin: 0;
+            }
+
+            #jumpnav button {
+                width: 40px;
+                height: 40px;
+                border: 1px solid var(--comp-jumpnav-outline);
+
+                font-size: 24px;
+
+                background-color: var(--comp-jumpnav-background-color);
+                color: var(--comp-jumpnav-on-background-color);
+            }
+
+            #jumpnav button.done {
+                background-color: var(--comp-jumpnav-background-color-done);
+                color: var(--comp-jumpnav-on-background-color-done);
+            }
+
+            #jumpnav button.active {
+                outline: 1px solid var(--color-primary);
+            }
+        </style>
+        <script>
+            const attributes = [
+                ["casting", "Zauber wirken", "Götter anrufen"],
+                ["fightig_style", "Nahkampflastig", "Fernkampflastig"],
+                ["temperament", "Kalt / Berechnend", "Heißblütig / Wild"],
+                ["specialists", "viele Spezialisten", "viele Generalisten"],
+                ["goal", "Gewinnorientiert", "Spaßorientiert"],
+                ["size", "Horde / viele Modelle", "Elite / wenig Modelle"],
+                ["movement", "Schwerfällig & Zäh", "Flink & Schwach"],
+                ["tactics", "Heimlich/ Hinterrücks", "Direkt/ Konfrontativ"],
+                ["technology", "Technologisch fortschrittlich", "klassische Kriegsführung"],
+                ["models", "Große Auswahl an Modellen", "Geringe Auswahl an Modellen"],
+                ["heroes", "Viele (namenhafte) Helden", "Wenig (namenhafte) Helden"],
+            ]
+        </script>
+        <script>
+            function generateInputs(name){
+                const inputs = {};
+                [-2, -1, 0, 1, 2].forEach((input) => {
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = name;
+                    radio.value = input;
+                    inputs[input] = radio;
+                });
+                return inputs;
+            };
+
+            class WOMQuestion extends HTMLElement {
+                static formAssociated = true;
+                static observedAttributes = ["data-value", "double"];
+
+                static get properties() {
+                    return {
+                        value: {type: Number},
+                        double: {type: Boolean},
+                    };
+                }
+
+                get value() { 
+                    return this.value_ ? this.value_ * (this.doubleCheckbox.checked ? 2 : 1) : 0
+                }
+                set value(v) { 
+                    this.value_ = v * (this.doubleCheckbox.checked ? 2 : 1);
+                    this.setAttribute('value', this.value_);
+                    this.internals_.setFormValue(this.value_);
+                }
+
+                get double() { return this.double_; }
+                set double(v) { 
+                    this.double_ = v;
+                    this.doubleCheckbox.checked = v;
+                    this.value = this.value_;
+                    this.setAttribute('double', v);
+                }
+
+                constructor() {
+                    super();
+                    this.value_ = "";
+                    this.double_ = false;
+                    this.internals_ = this.attachInternals();
+                    this.internals_.setFormValue(this.value_);
+                }
+
+                connectedCallback() {
+                    const template = document.getElementById(
+                        'wom-question'
+                    ).content;
+                    const shadowRoot = this.attachShadow({mode: 'open'});
+                    shadowRoot.appendChild(template.cloneNode(true));
+
+                    this.doubleCheckbox = shadowRoot.querySelector('input[name="double"]');
+                    this.radio_buttons = shadowRoot.querySelectorAll('input[name="selection"]');
+
+                    this.radio_buttons.forEach((radio) => {
+                        radio.addEventListener('change', (event) => {
+                            let v = parseInt(event.target.value);
+                            this.value = v;
+                            setTimeout(() => gotoNext(), 100);
+                        });
+                    });
+
+                    this.doubleCheckbox.addEventListener('change', (event) => {
+                        this.double = event.target.checked;
+                    });
+                }
+            };
+
+            customElements.define('wom-question', WOMQuestion);
+        </script>
+        <script>
+
+            function renderQuestion([name, option1Text, option2Text]) {
+                const question = document.createElement('wom-question');
+                question.setAttribute('name', name);
+
+                const option1 = document.createElement('span');
+                option1.setAttribute('slot', 'option1');
+                option1.appendChild(document.createTextNode(option1Text));
+                question.appendChild(option1);
+
+                const option2 = document.createElement('span');
+                option2.setAttribute('slot', 'option2');
+                option2.appendChild(document.createTextNode(option2Text));
+                question.appendChild(option2);
+                
+                const listElement = document.createElement('li');
+                listElement.appendChild(question);
+                listElement.ariaLabel = name;
+
+                return question;
+            }
+
+            function renderQuestionList(questions) {
+                const list = document.createElement('ol');
+                list.classList.add('question-list');
+
+                questions.forEach((question) => {
+                    const li  = document.createElement('li');
+                    li.appendChild(question);
+                    list.appendChild(li);
+                });
+
+                return list;
+            }
+
+            function getActiveQuestion() {
+                for (let i = 0; i < attributes.length; i++) {
+                    const question = document.querySelector(`wom-question[name="${attributes[i][0]}"]`);
+                    if (question.classList.contains('active')) {
+                        return i;
+                    }
+                }
+            }
+
+            function gotoQuestionNo(questionNo) {
+                for (let i = 0; i < attributes.length; i++) {
+                    const question = document.querySelector(`wom-question[name="${attributes[i][0]}"]`);
+                    if (i === questionNo) {
+                        question.classList.add('active');
+                    } else {
+                        question.classList.remove('active');
+                    }
+
+                    const navitem = document.querySelector(`#jumpnav li:nth-child(${i+1}) button`);
+                    if (question.hasAttribute('value')) {
+                        navitem.classList.add('done');
+                    } else {
+                        navitem.classList.remove('done');
+                    }
+                    if (i === questionNo) {
+                        navitem.classList.add('active');
+                    } else {
+                        navitem.classList.remove('active');
+                    }
+                }
+            }
+
+            function gotoNext() {
+                const current = getActiveQuestion();
+                if (current === undefined) gotoQuestionNo(0);
+                if (current < attributes.length - 1) {
+                    gotoQuestionNo(current + 1);
+                }
+            }
+
+            function renderJumpNavButton(label, onClick){
+                const button = document.createElement('button');
+                button.addEventListener('click', onClick);
+                button.textContent = label;
+                button.setAttribute('aria-label', `Frage ${label}`);
+                return button;
+            }
+
+            function wrapInLi(element) {
+                const li = document.createElement('li');
+                li.appendChild(element);
+                return li;
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const form = document.getElementById('war-o-mat');
+                const questionList = document.getElementById('question-list');
+                const jumpNav = document.getElementById('jumpnav');
+
+                questions = attributes.map(renderQuestion);
+                questions[0].classList.add('active');
+
+                questions.forEach((question, i) => {
+                    const questionItem = wrapInLi(question);
+                    questionItem.ariaLabel = question.attributes.name.value;
+                    questionList.appendChild(questionItem);
+
+                    const navLabel = `${i+1}`;
+                    const jumpNavButton = renderJumpNavButton(navLabel, () => gotoQuestionNo(i))
+                    if (i === 0) jumpNavButton.classList.add('active');
+                    jumpNav.appendChild(wrapInLi(jumpNavButton));
+                });
+            });
+
+            
+        </script>
+    </head>
+
+    <template id="wom-question">
+        <style>
+            * {
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            .question {
+                --spacing: 8px;
+                display: grid;
+                grid-template:
+                    "option1 option1 option2 option2" auto
+                    ". double double ." auto
+                    ". neutral neutral ." auto
+                    / 1fr 1fr 1fr 1fr;
+
+                border: 1px solid var(--color-outline);
+                padding: var(--spacing);
+                gap: var(--spacing);
+
+                background-color: var(--comp-question-background-color, transparent);
+                color: var(--color-on-surface, black);
+            }
+
+            .option {
+                height: 100px;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                background-color: var(--comp-option_button-background-color);
+                color: var(--comp-option_button-on-background-color);
+                
+                font-size: var(--option-font-size, 24px);
+                font-weight: var(--option-font-weight, bold);
+            }
+
+            input[type="radio"] {
+                appearance: none;
+            }   
+
+            .option1 {
+                grid-area: option1;
+            }
+
+            .option2 {
+                grid-area: option2;
+            }
+
+            .neutral {
+                grid-area: neutral;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 40px;
+
+                margin: 4px;
+            }
+            .neutral:hover {
+                    background-color: var(--color-primary-container);
+                    color: var(--color-on-primary-container);
+            }
+
+            .double {
+                grid-area: double;
+                justify-self: center;
+            }
+
+            :host([value="-1"]) .option1, :host([value="-2"]) .option1 {
+                background-color: var(--comp-option_button-background-active-color);
+                color: var(--comp-option_button-on-background-active-color);
+            }
+
+            :host([value="1"]) .option2, :host([value="2"]) .option2 {
+                background-color: var(--comp-option_button-background-active-color);
+                color: var(--comp-option_button-on-background-active-color);
+            }
+        </style>
+
+        <article class="question">
+            <label class="option option1">
+                <input type="radio"  name="selection" value="-1"/>
+                <slot name="option1">
+                    Zauber wirken
+                </slot>
+            </label>
+
+            <label class="option option2">
+                <input type="radio" name="selection" value="+1" />
+                <slot name="option2">
+                    Götter anrufen
+                </slot>
+            </label>
+
+            <label class="neutral">
+                <input type="radio" name="selection" value="0" />
+                Mir egal.
+            </label>
+
+            <label class="double">
+                <input name="double" type="checkbox"/> 
+                Das ist mir wichtig!           
+            </label>
+        </article>
+    </template>
+
+    <body>
+        
+        <h1>War-o-Mat</h1>
+        <nav>
+            <ol id="jumpnav"></ol>
+        </nav>
+        <main>
+            <form id="war-o-mat">
+                <ol id="question-list"></ol>
+            </form>
+            <output id="result"></output>
+        </main>
+    </body>
+</html>
