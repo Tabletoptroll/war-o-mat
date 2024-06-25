@@ -239,7 +239,6 @@
                 set double(v) { 
                     this.double_ = v;
                     this.doubleCheckbox.checked = v;
-                    this.value = this.value_;
                     this.setAttribute('double', v);
                 }
 
@@ -401,22 +400,28 @@
             .question {
                 --spacing: 8px;
                 display: grid;
-                grid-template:
-                    "option1 option1 option2 option2" auto
-                    ". double double ." auto
-                    ". neutral neutral ." auto
-                    / 1fr 1fr 1fr 1fr;
+                grid-template-columns: 1fr auto 1fr;
+                align-items: center;
+                gap: var(--spacing);
 
                 border: 1px solid var(--color-outline);
                 padding: var(--spacing);
-                gap: var(--spacing);
+                
 
                 background-color: var(--comp-question-background-color, transparent);
                 color: var(--color-on-surface, black);
             }
 
+            .options {
+                display: flex;
+                flex-direction: row;
+                gap: var(--spacing);
+                border: none; 
+            }
+
             .option {
-                height: 100px;
+                min-height: 48px;
+                min-width: 48px;
 
                 display: flex;
                 justify-content: center;
@@ -429,68 +434,62 @@
                 font-weight: var(--option-font-weight, bold);
             }
 
+            slot[name="option2"] {
+                text-align: end;
+            }
+
+            slot {
+                vertical-align: middle;
+            }
+
             input[type="radio"] {
                 appearance: none;
-            }   
-
-            .option1 {
-                grid-area: option1;
-            }
-
-            .option2 {
-                grid-area: option2;
-            }
-
-            .neutral {
-                grid-area: neutral;
-
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                min-height: 40px;
-
-                margin: 4px;
-            }
-            .neutral:hover {
-                    background-color: var(--color-primary-container);
-                    color: var(--color-on-primary-container);
             }
 
             .double {
-                grid-area: double;
+                grid-column: 1 / -1;
                 justify-self: center;
             }
 
-            :host([value="-1"]) .option1, :host([value="-2"]) .option1 {
-                background-color: var(--comp-option_button-background-active-color);
-                color: var(--comp-option_button-on-background-active-color);
-            }
-
-            :host([value="1"]) .option2, :host([value="2"]) .option2 {
+            :host([value="-2"]) .options .option:nth-child(1),
+            :host([value="-1"]) .options .option:nth-child(2),
+            :host([value="0"]) .options .option:nth-child(3),
+            :host([value="1"]) .options .option:nth-child(4),
+            :host([value="2"]) .options .option:nth-child(5) {
                 background-color: var(--comp-option_button-background-active-color);
                 color: var(--comp-option_button-on-background-active-color);
             }
         </style>
 
         <article class="question">
-            <label class="option option1">
-                <input type="radio"  name="selection" value="-1"/>
-                <slot name="option1">
-                    Zauber wirken
-                </slot>
-            </label>
-
-            <label class="option option2">
-                <input type="radio" name="selection" value="+1" />
-                <slot name="option2">
-                    Götter anrufen
-                </slot>
-            </label>
-
-            <label class="neutral">
-                <input type="radio" name="selection" value="0" />
-                Mir egal.
-            </label>
+            <slot name="option1">
+                Zauber wirken
+            </slot>
+            <fieldset class="options">
+                <label class="option">
+                    <input type="radio" name="selection" value="-2"/>
+                    -2
+                </label>
+                <label class="option">
+                    <input type="radio" name="selection" value="-1"/>
+                    -1
+                </label>
+                <label class="option">
+                    <input type="radio" name="selection" value="0" />
+                    0
+                </label>
+                <label class="option">
+                    <input type="radio" name="selection" value="+1" />
+                    +1
+                </label>
+                <label class="option">
+                    <input type="radio" name="selection" value="+2"/>
+                    +2
+                </label>
+            </fieldset>
+            <slot name="option2">
+                Götter anrufen
+            </slot>
 
             <label class="double">
                 <input name="double" type="checkbox"/> 
