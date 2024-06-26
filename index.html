@@ -56,6 +56,8 @@
                 --motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
                 --motion-duration-medium4: 400ms;
 
+                --motion-duration-emphasized-decelerate: var(--motion-duration-medium4);
+
 
                 /* Component Colors */
 
@@ -109,6 +111,7 @@
             @media (prefers-reduced-motion) {
                 * {
                     transition: none !important;
+                    animation: none !important;
                 }
             }
 
@@ -138,39 +141,38 @@
                 grid-column: content;
             }
 
-            li:has(wom-question.active) ~ li {
-                translate: 50%;
+            /* All li after the active */
+            .stacked-list > li:has(wom-question.active) ~ li {
+                translate: 100%;
             }
 
-            li:has(~ li > wom-question.active) {
-                translate: -50%;
+            /* All li before the active */
+            .stacked-list > li:has(~ li > wom-question.active) {
+                scale: 0.8;
             }
 
+            /* All li that are not active */
+            .stacked-list > li:has(wom-question:not(.active)) {
+                opacity: 0;
+            }
 
-            li:has(wom-question) {
+            .stacked-list > li:has(wom-question) {
                 transition:  
-                    opacity 100ms var(--motion-easing-emphasized-decelerate),
-                    translate var(--motion-duration-medium4) var(--motion-easing-emphasized-decelerate);
+                    opacity var(--motion-duration-emphasized-decelerate) var(--motion-easing-emphasized-decelerate),
+                    translate var(--motion-duration-emphasized-decelerate) var(--motion-easing-emphasized-decelerate),
+                    scale var(--motion-duration-emphasized-decelerate) var(--motion-easing-emphasized-decelerate);
             }
 
-            li:has(wom-question.active) {
-                opacity: 1;
-            }
-            li:has(wom-question:not(.active)) {
-                opacity: 0; 
-                pointer-events: none;
-                content-visibility: hidden;
-            }
-
-            .question-list {
+            .stacked-list {
                 position: relative;
             }
 
-            .question-list > * {
+            .stacked-list > * {
                 position: absolute;
                 top: 0;
                 left: 0;
                 width: 100%;
+                height: 100%;
             }
 
             .question-list > :not(:last-child){
@@ -526,7 +528,7 @@
         </nav>
         <main>
             <form id="war-o-mat">
-                <ol id="question-list"></ol>
+                <ol id="question-list" class="stacked-list"></ol>
             </form>
             <output id="result"></output>
         </main>
