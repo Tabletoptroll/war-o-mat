@@ -559,17 +559,22 @@
 
             .chooser .choice1-label {
                 grid-area: choice1;
-                font-weight: bold;
             }
 
             .chooser .choice2-label {
                 grid-area: choice2;
-                font-weight: bold;
                 text-align: end;
                 justify-self: flex-end;
             }
 
+            .choice-label {
+                font-weight: bold;
+            }
 
+            .double {
+                grid-column: 1 / -1;
+                justify-self: center;
+            }
 
             .options {
                 display: grid;
@@ -607,16 +612,7 @@
                 height: 0;
             }
 
-            .double {
-                grid-column: 1 / -1;
-                justify-self: center;
-            }
-
-            :host([value="-2"]) .options .option:nth-child(1),
-            :host([value="-1"]) .options .option:nth-child(2),
-            :host([value="0"]) .options .option:nth-child(3),
-            :host([value="1"]) .options .option:nth-child(4),
-            :host([value="2"]) .options .option:nth-child(5) {
+            .option:has(> input:checked) {
                 background-color: var(--comp-option_button-background-active-color);
                 color: var(--comp-option_button-on-background-active-color);
             }
@@ -632,7 +628,7 @@
                 </legend>
             </header>
             <div class="chooser">
-                <div class="choice1-label">
+                <div class="choice1-label choice-label">
                     <slot name="option1">
                         Zauber wirken
                     </slot>
@@ -660,7 +656,7 @@
                         2
                     </label>
                 </div>
-                <div class="choice2-label">
+                <div class="choice2-label choice-label">
                     <slot name="option2">
                         Götter anrufen
                     </slot>
