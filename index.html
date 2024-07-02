@@ -154,6 +154,7 @@
             /* All li that are not active */
             .stacked-list > li:has(wom-question:not(.active)) {
                 opacity: 0;
+                visibility: hidden;
             }
 
             .stacked-list > li:has(wom-question) {
@@ -211,17 +212,83 @@
         </style>
         <script>
             const attributes = [
-                ["casting", "Zauber wirken", "Götter anrufen"],
-                ["fightig_style", "Nahkampflastig", "Fernkampflastig"],
-                ["temperament", "Kalt / Berechnend", "Heißblütig / Wild"],
-                ["specialists", "viele Spezialisten", "viele Generalisten"],
-                ["goal", "Gewinnorientiert", "Spaßorientiert"],
-                ["size", "Horde / viele Modelle", "Elite / wenig Modelle"],
-                ["movement", "Schwerfällig & Zäh", "Flink & Schwach"],
-                ["tactics", "Heimlich/ Hinterrücks", "Direkt/ Konfrontativ"],
-                ["technology", "Technologisch fortschrittlich", "klassische Kriegsführung"],
-                ["models", "Große Auswahl an Modellen", "Geringe Auswahl an Modellen"],
-                ["heroes", "Viele (namenhafte) Helden", "Wenig (namenhafte) Helden"],
+                {
+                    "id": "casting",
+                    "title": "Fähigkeiten",
+                    "description": "Ziehst du es vor, mächtige Zauber zu wirken oder die Götter um Unterstützung anzurufen?",
+                    "option1": "Zauber wirken",
+                    "option2": "Götter anrufen"
+                },
+                {
+                    "id": "fighting_style", 
+                    "title": "Kampfdistanz",
+                    "description": "Stellst du dich dem Feind lieber im Nahkampf oder setzt du auf den Kampf aus der Distanz?",
+                    "option1": "Nahkampflastig",
+                    "option2": "Fernkampflastig"
+                },
+                {
+                    "id": "temperament",
+                    "title": "Temperament",
+                    "description": "Bist du eher kalt und berechnend oder zeigst du deine Macht mit heißblütiger Wildheit?",
+                    "option1": "Kalt / Berechnend",
+                    "option2": "Heißblütig / Wild"
+                },
+                {
+                    "id": "specialists",
+                    "title": "Truppenaufstellung",
+                    "description": "Bevorzugst du spezialisierte Einheiten oder setzt du auf vielseitige Kämpfer?",
+                    "option1": "Viele Spezialisten",
+                    "option2": "Viele Generalisten"
+                },
+                {
+                    "id": "goal",
+                    "title": "Spielmotivationen",
+                    "description": "Strebst du nach dem ultimativen Sieg oder ist dir der Spaß am Spiel wichtiger?",
+                    "option1": "Gewinnorientiert",
+                    "option2": "Spaßorientiert"
+                },
+                {
+                    "id": "size",
+                    "title": "Truppengröße",
+                    "description": "Setzt du auf eine Horde von vielen Modellen oder führst du eine Eliteeinheit mit wenigen Modellen?",
+                    "option1": "Horde / viele Modelle",
+                    "option2": "Elite / wenig Modelle"
+                },
+                {
+                    "id": "movement",
+                    "title": "Beweglichkeit und Widerstandsfähigkeit",
+                    "description": "Bevorzugst du schwerfällige und zähe Einheiten oder lieber flinke und schwache Kämpfer?",
+                    "option1": "Schwerfällig & Zäh",
+                    "option2": "Flink & Schwach"
+                },
+                {
+                    "id": "tactics",
+                    "title": "Kampfstrategie",
+                    "description": "Gehst du heimlich und hinterrücks vor oder stellst du dich dem Feind direkt und konfrontativ?",
+                    "option1": "Heimlich/ Hinterrücks",
+                    "option2": "Direkt/ Konfrontativ"
+                },
+                {
+                    "id": "technology",
+                    "title": "Kriegstechnologie",
+                    "description": "Vertraust du auf technologisch fortschrittliche Kriegsführung oder bleibst du der klassischen Kriegsführung treu?",
+                    "option1": "Technologisch fortschrittlich",
+                    "option2": "Klassische Kriegsführung"
+                },
+                {
+                    "id": "models",
+                    "title": "Modellauswahl",
+                    "description": "Bevorzugst du eine große Auswahl an verschiedenen Modellen oder eine geringe Auswahl an spezialisierten Modellen?",
+                    "option1": "Große Auswahl an Modellen",
+                    "option2": "Geringe Auswahl an Modellen"
+                },
+                {
+                    "id": "heroes",
+                    "title": "Heldenanzahl",
+                    "description": "Schätzt du viele namenhafte Helden oder ziehst du wenige, aber mächtige Helden vor?",
+                    "option1": "Viele (namenhafte) Helden",
+                    "option2": "Wenig (namenhafte) Helden"
+                }
             ]
         </script>
         <script>
@@ -286,7 +353,9 @@
                         radio.addEventListener('change', (event) => {
                             let v = parseInt(event.target.value);
                             this.value = v;
-                            setTimeout(() => gotoNext(), 100);
+                        });
+                        radio.addEventListener('click', (event) => {
+                            setTimeout(() => gotoNext(), 100); /* TODO A11y issue: Navigating with keyboard emits a click event. */
                         });
                     });
 
@@ -300,23 +369,39 @@
         </script>
         <script>
 
-            function renderQuestion([name, option1Text, option2Text]) {
+            function renderQuestion({
+                id, 
+                title, 
+                description, 
+                option1: option1_text, 
+                option2: option2_text
+            }) {
                 const question = document.createElement('wom-question');
-                question.setAttribute('name', name);
+                question.setAttribute('name', id);
+
+                const titleSlot = document.createElement('span');
+                titleSlot.setAttribute('slot', 'title');
+                titleSlot.appendChild(document.createTextNode(title));
+                question.appendChild(titleSlot);
+
+                const descriptionSlot = document.createElement('span'); 
+                descriptionSlot.setAttribute('slot', 'description');
+                descriptionSlot.appendChild(document.createTextNode(description));
+                question.appendChild(descriptionSlot); 
 
                 const option1 = document.createElement('span');
                 option1.setAttribute('slot', 'option1');
-                option1.appendChild(document.createTextNode(option1Text));
+                option1.appendChild(document.createTextNode(option1_text));
                 question.appendChild(option1);
 
                 const option2 = document.createElement('span');
                 option2.setAttribute('slot', 'option2');
-                option2.appendChild(document.createTextNode(option2Text));
+                option2.appendChild(document.createTextNode(option2_text));
                 question.appendChild(option2);
                 
                 const listElement = document.createElement('li');
                 listElement.appendChild(question);
-                listElement.ariaLabel = name;
+                listElement.ariaLabel = title;
 
                 return question;
             }
@@ -336,7 +421,7 @@
 
             function getActiveQuestion() {
                 for (let i = 0; i < attributes.length; i++) {
-                    const question = document.querySelector(`wom-question[name="${attributes[i][0]}"]`);
+                    const question = document.querySelector(`wom-question[name="${attributes[i].id}"]`);
                     if (question.classList.contains('active')) {
                         return i;
                     }
@@ -345,7 +430,7 @@
 
             function gotoQuestionNo(questionNo) {
                 for (let i = 0; i < attributes.length; i++) {
-                    const question = document.querySelector(`wom-question[name="${attributes[i][0]}"]`);
+                    const question = document.querySelector(`wom-question[name="${attributes[i].id}"]`);
                     if (i === questionNo) {
                         question.classList.add('active');
                     } else {
@@ -419,12 +504,17 @@
                 box-sizing: border-box;
             }
 
+            h2 {
+                grid-column: 0 / -0;
+                margin-block-end: 0.5em;
+            }
+
             .question {
                 --spacing: 8px;
                 display: grid;
-                grid-template-columns: 1fr auto 1fr;
+                
                 align-items: center;
-                gap: var(--spacing);
+                gap: calc(2 * var(--spacing));
 
                 border: 1px solid var(--color-outline);
                 padding: var(--spacing);
@@ -432,11 +522,40 @@
 
                 background-color: var(--comp-question-background-color, transparent);
                 color: var(--color-on-surface, black);
+
+                 
             }
 
+            .chooser {
+                display: grid;
+                align-items: center;
+                grid-auto-rows: auto; 
+                grid-template-columns: 1fr auto 1fr;
+                grid-template-rows: repeat(3, auto); 
+                grid-template-areas: 
+                    "choice1 . choice2"
+                    "options options options"
+                    "double double double";  
+            }
+
+            .chooser .choice1-label {
+                grid-area: choice1;
+                font-weight: bold;
+            }
+
+            .chooser .choice2-label {
+                grid-area: choice2;
+                font-weight: bold;
+                text-align: end;
+                justify-self: flex-end;
+            }
+
+
+
             .options {
-                display: flex;
-                flex-direction: row;
+                display: grid;
+                grid-area: options;
+                grid-template-columns: repeat(5, 1fr);
                 gap: var(--spacing);
                 border: none; 
             }
@@ -456,12 +575,10 @@
                 font-weight: var(--option-font-weight, bold);
             }
 
-            slot[name="option2"] {
-                text-align: end;
-            }
-
-            slot {
-                vertical-align: middle;
+            .option:focus-within {
+                outline-offset: 2px;
+                outline: 2px solid var(--color-primary);
+                ;
             }
 
             input[type="radio"] {
@@ -483,41 +600,55 @@
             }
         </style>
 
-        <article class="question">
-            <slot name="option1">
-                Zauber wirken
-            </slot>
-            <fieldset class="options">
-                <label class="option">
-                    <input type="radio" name="selection" value="-2"/>
-                    -2
-                </label>
-                <label class="option">
-                    <input type="radio" name="selection" value="-1"/>
-                    -1
-                </label>
-                <label class="option">
-                    <input type="radio" name="selection" value="0" />
-                    0
-                </label>
-                <label class="option">
-                    <input type="radio" name="selection" value="+1" />
-                    +1
-                </label>
-                <label class="option">
-                    <input type="radio" name="selection" value="+2"/>
-                    +2
-                </label>
-            </fieldset>
-            <slot name="option2">
-                Götter anrufen
-            </slot>
-
+        <fieldset class="question">
+            <header>
+                <h2>
+                    <slot name="title">Magische Fähigkeiten</slot>
+                </h2>
+                <legend>
+                    <slot name="description">Ziehst du es vor, mächtige Zauber zu wirken oder die Götter um Unterstützung anzurufen?</slot>
+                </legend>
+            </header>
+            <div class="chooser">
+                <div class="choice1-label">
+                    <slot name="option1">
+                        Zauber wirken
+                    </slot>
+                </div>
+                
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="selection" value="-2"/>
+                        2
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="selection" value="-1"/>
+                        1
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="selection" value="0" />
+                        0
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="selection" value="+1" />
+                        1
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="selection" value="+2"/>
+                        2
+                    </label>
+                </div>
+                <div class="choice2-label">
+                    <slot name="option2">
+                        Götter anrufen
+                    </slot>
+                </div>
+            </div>
             <label class="double">
                 <input name="double" type="checkbox"/> 
                 Das ist mir wichtig!           
             </label>
-        </article>
+        </fieldset>
     </template>
 
     <body>
