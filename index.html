@@ -135,6 +135,7 @@
             body {
                 line-height: 1.5;
                 -webkit-font-smoothing: antialiased;
+                min-height: 100svh;
             }
 
             ol {
@@ -147,10 +148,10 @@
                 color: var(--color-on-surface);
                 max-width: 100%;
                 overflow-x: hidden;
-                /* min-height: 100svh; */
                 display: grid;
-                grid-template-columns: [edge-start] minmax(8px, auto) [content-start] minmax(auto, 800px) [content-end] minmax(8px, auto) [edge-end];
+                grid-template-columns: [edge-start] 1fr [content-start] min(calc(100% - 2*8px), 800px) [content-end] 1fr [edge-end];
                 grid-auto-rows: auto;
+                grid-template-rows: auto auto 1fr; /* Can I make this, so it isn't depended on the content beeing in the third row? */
                 gap: 8px;
             }
 
@@ -182,15 +183,12 @@
             }
 
             .stacked-list {
-                position: relative;
+                display: grid;
+                overflow: hidden;
             }
 
             .stacked-list > * {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
+                grid-area: 1 / 1 / -1 / -1;
             }
 
             .question-list > :not(:last-child){
@@ -681,5 +679,6 @@
             </form>
             <output id="result"></output>
         </main>
+        <footer></footer>
     </body>
 </html>
