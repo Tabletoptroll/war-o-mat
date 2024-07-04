@@ -3,62 +3,12 @@
     <head>
         <title>War-o-Mat</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preload" href="assets/styles/reset.css" as="style" />
+        <link rel="preload" href="assets/styles/colors.css" as="style" />
         <style>
+            @import url(assets/styles/reset.css) layer(reset);
+            @import url(assets/styles/colors.css) layer(utilities);
             :root {
-                /* Overengineered Automagic Color ahead! */
-                
-                --primary-chroma: 0.1; /* 0.114 */
-                --primary-hue: 123.11deg;
-                --primary-ch: var(--primary-chroma) var(--primary-hue);
-
-                --secondary-chroma: calc(var(--primary-chroma) / 3.0);
-                --secondary-hue: var(--primary-hue);
-                --secondary-ch: var(--secondary-chroma) var(--secondary-hue);
-
-                --tertiary-chroma: calc(var(--primary-chroma) / 2.0);
-                --tertiary-hue: calc(var(--primary-hue) + 130deg);
-                --tertiary-ch: var(--tertiary-chroma) var(--tertiary-hue);
-
-                --neutral-chroma: calc(min(var(--primary-chroma) / 12, 0.02)); 
-                --neutral-hue: var(--primary-hue);
-                --neutral-ch: var(--neutral-chroma) var(--neutral-hue);
-
-                --neutral-variant-chroma: calc(var(--neutral-chroma) * 2.0);
-                --neutral-variant-hue: var(--neutral-hue);
-                --neutral-variant-ch: var(--neutral-variant-chroma) var(--neutral-variant-hue);
-
-
-                /* Color Roles */
-
-                --color-primary: oklch(47.45% var(--primary-ch));
-                --color-on-primary: oklch(100% var(--primary-ch));
-
-                --color-primary-container: oklch(90% var(--primary-ch));
-                --color-on-primary-container: oklch(40% var(--primary-ch));
-
-                --color-secondary-container: oklch(90% var(--secondary-ch));
-                --color-on-secondary-container: oklch(40% var(--secondary-ch));
-
-                --color-tertiary-container: oklch(90% var(--tertiary-ch));
-                --color-on-tertiary-container: oklch(40% var(--tertiary-ch));
-
-                --color-surface: oklch(98% var(--neutral-ch));
-                --color-surface-container-lowest: oklch(100% var(--neutral-ch));;
-                --color-surface-container-low: oklch(96% var(--neutral-ch));
-                --color-surface-container: oklch(94% var(--neutral-ch));
-
-                --color-on-surface: oklch(20% var(--neutral-ch));
-                --color-on-surface-variant: oklch(40% var(--neutral-variant-ch));
-                
-
-                --color-outline: oklch(50% var(--neutral-variant-ch));
-
-                --motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
-                --motion-duration-medium4: 400ms;
-
-                --motion-duration-emphasized-decelerate: var(--motion-duration-medium4);
-
-
                 /* Component Colors */
 
                 --comp-question-background-color: var(--color-surface-container-low);
@@ -79,63 +29,6 @@
                 accent-color: var(--color-primary);
 
                 font-family: sans-serif;
-            }
-
-            @media (prefers-color-scheme: dark) {
-                :root {
-                    color-scheme: dark;
-
-                    --color-primary: oklch(80% var(--primary-ch));
-                    --color-on-primary: oklch(40% var(--primary-ch));
-
-                    --color-primary-container: oklch(40% var(--primary-ch));
-                    --color-on-primary-container: oklch(90% var(--primary-ch));
-
-                    --color-secondary-container: oklch(40% var(--secondary-ch));
-                    --color-on-secondary-container: oklch(90% var(--secondary-ch));
-
-                    --color-tertiary-container: oklch(40% var(--tertiary-ch));
-                    --color-on-tertiary-container: oklch(90% var(--tertiary-ch));
-
-                    --color-surface: oklch(20% var(--neutral-ch));
-                    --color-surface-container-lowest: oklch(15% var(--neutral-ch));
-                    --color-surface-container-low: oklch(22% var(--neutral-ch));
-                    --color-surface-container: oklch(24% var(--neutral-ch));
-                    --color-on-surface: oklch(90% var(--neutral-ch));
-                    --color-on-surface-variant: oklch(90% var(--neutral-variant-ch));
-
-                    --color-outline: oklch(60% var(--neutral-variant-ch));
-                }
-            }
-
-            @media (prefers-reduced-motion) {
-                * {
-                    transition: none !important;
-                    animation: none !important;
-                }
-            }
-
-            *, *::before, *::after {
-                box-sizing: border-box;
-            }
-
-            * {
-                margin: 0;
-            }
-
-            img, picture, video, canvas, svg {
-                display: block;
-                max-width: 100%;
-            }
-
-            p, h1, h2, h3, h4, h5, h6 {
-                overflow-wrap: break-word;
-            }
-
-            body {
-                line-height: 1.5;
-                -webkit-font-smoothing: antialiased;
-                min-height: 100svh;
             }
 
             ol {
