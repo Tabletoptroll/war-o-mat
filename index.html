@@ -119,6 +119,18 @@
             #jumpnav button.active {
                 outline: 1px solid var(--color-primary);
             }
+
+
+            #result {
+                white-space: pre; 
+                display: grid; 
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1em;
+
+                & th {
+                    text-align: left;
+                }
+            }
         </style>
         <script>
             const attributes = [
@@ -130,7 +142,7 @@
                     "option2": "Götter anrufen"
                 },
                 {
-                    "id": "fighting_style", 
+                    "id": "kampfstil", 
                     "title": "Kampfdistanz",
                     "description": "Stellst du dich dem Feind lieber im Nahkampf oder setzt du auf den Kampf aus der Distanz?",
                     "option1": "Nahkampflastig",
@@ -144,62 +156,362 @@
                     "option2": "Heißblütig / Wild"
                 },
                 {
-                    "id": "specialists",
+                    "id": "aufstellung",
                     "title": "Truppenaufstellung",
                     "description": "Bevorzugst du spezialisierte Einheiten oder setzt du auf vielseitige Kämpfer?",
                     "option1": "Viele Spezialisten",
                     "option2": "Viele Generalisten"
                 },
                 {
-                    "id": "goal",
+                    "id": "spielmotivation",
                     "title": "Spielmotivationen",
                     "description": "Strebst du nach dem ultimativen Sieg oder ist dir der Spaß am Spiel wichtiger?",
                     "option1": "Gewinnorientiert",
                     "option2": "Spaßorientiert"
                 },
                 {
-                    "id": "size",
+                    "id": "truppengroesse",
                     "title": "Truppengröße",
                     "description": "Setzt du auf eine Horde von vielen Modellen oder führst du eine Eliteeinheit mit wenigen Modellen?",
                     "option1": "Horde / viele Modelle",
                     "option2": "Elite / wenig Modelle"
                 },
                 {
-                    "id": "movement",
+                    "id": "beweglichkeit",
                     "title": "Beweglichkeit und Widerstandsfähigkeit",
                     "description": "Bevorzugst du schwerfällige und zähe Einheiten oder lieber flinke und schwache Kämpfer?",
                     "option1": "Schwerfällig & Zäh",
                     "option2": "Flink & Schwach"
                 },
                 {
-                    "id": "tactics",
+                    "id": "strategie",
                     "title": "Kampfstrategie",
                     "description": "Gehst du heimlich und hinterrücks vor oder stellst du dich dem Feind direkt und konfrontativ?",
                     "option1": "Heimlich/ Hinterrücks",
                     "option2": "Direkt/ Konfrontativ"
                 },
                 {
-                    "id": "technology",
+                    "id": "technologie",
                     "title": "Kriegstechnologie",
                     "description": "Vertraust du auf technologisch fortschrittliche Kriegsführung oder bleibst du der klassischen Kriegsführung treu?",
                     "option1": "Technologisch fortschrittlich",
                     "option2": "Klassische Kriegsführung"
                 },
                 {
-                    "id": "models",
+                    "id": "modelle",
                     "title": "Modellauswahl",
                     "description": "Bevorzugst du eine große Auswahl an verschiedenen Modellen oder eine geringe Auswahl an spezialisierten Modellen?",
                     "option1": "Große Auswahl an Modellen",
                     "option2": "Geringe Auswahl an Modellen"
                 },
                 {
-                    "id": "heroes",
+                    "id": "helden",
                     "title": "Heldenanzahl",
                     "description": "Schätzt du viele namenhafte Helden oder ziehst du wenige, aber mächtige Helden vor?",
                     "option1": "Viele (namenhafte) Helden",
                     "option2": "Wenig (namenhafte) Helden"
                 }
             ]
+
+            const ATTRIBUTE_FACTION_VALUE = {
+                "casting": {
+                    "__1": "Zauber wirken",
+                    "__2": "Götter anrufen",
+                    "Nighthaunt": -1,
+                    "Ossiarch": -1,
+                    "FEC": -1,
+                    "SBTG": -1,
+                    "Ogor": -1,
+                    "SoB": 0,
+                    "Orruks": -1,
+                    "Gitz": -2,
+                    "Khorne": 2,
+                    "Nurgle": -1,
+                    "Slanesh": 0,
+                    "Tzeentch": -2,
+                    "Skaven": -1,
+                    "STD": -1,
+                    "CoS": 0,
+                    "Sylvaneth": -2,
+                    "Fyreslayers": 2,
+                    "Idoneth": -1,
+                    "DoK": -2,
+                    "Lumineth": -2,
+                    "Seraphon": -2,
+                    "Stormcast": -2,
+                    "Kharadron": 0
+                },
+                "kampfstil": {
+                    "__1": "Nahkampflastig",
+                    "__2": "Fernkampflastig",
+                    "Nighthaunt": -1,
+                    "Ossiarch": -1,
+                    "FEC": -2,
+                    "SBTG": -1,
+                    "Ogor": -1,
+                    "SoB": -2,
+                    "Orruks": -2,
+                    "Gitz": 0,
+                    "Khorne": -2,
+                    "Nurgle": -1,
+                    "Slanesh": 1,
+                    "Tzeentch": 1,
+                    "Skaven": 0,
+                    "STD": 0,
+                    "CoS": 1,
+                    "Sylvaneth": -1,
+                    "Fyreslayers": -2,
+                    "Idoneth": 1,
+                    "DoK": -2,
+                    "Lumineth": 0,
+                    "Seraphon": -2,
+                    "Stormcast": -2,
+                    "Kharadron": 2
+                },
+                "temperament": {
+                    "__1": "Kalt / Berechnend",
+                    "__2": "Heißblütig / Wild",
+                    "Nighthaunt": 0,
+                    "Ossiarch": -1,
+                    "FEC": 2,
+                    "SBTG": -1,
+                    "Ogor": 2,
+                    "SoB": 2,
+                    "Orruks": 2,
+                    "Gitz": 0,
+                    "Khorne": 2,
+                    "Nurgle": 0,
+                    "Slanesh": -1,
+                    "Tzeentch": -1,
+                    "Skaven": 0,
+                    "STD": 0,
+                    "CoS": -1,
+                    "Sylvaneth": -1,
+                    "Fyreslayers": 2,
+                    "Idoneth": -1,
+                    "DoK": 2,
+                    "Lumineth": -1,
+                    "Seraphon": -2,
+                    "Stormcast": -2,
+                    "Kharadron": -1
+                },
+                "aufstellung": {
+                    "__1": "Viele Spezialisten",
+                    "__2": "Viele Generalisten",
+                    "Nighthaunt": 0,
+                    "Ossiarch": -1,
+                    "FEC": 0,
+                    "SBTG": -1,
+                    "Ogor": 0,
+                    "SoB": 2,
+                    "Orruks": 1,
+                    "Gitz": -1,
+                    "Khorne": 1,
+                    "Nurgle": 0,
+                    "Slanesh": -1,
+                    "Tzeentch": -1,
+                    "Skaven": -2,
+                    "STD": -1,
+                    "CoS": 0,
+                    "Sylvaneth": 0,
+                    "Fyreslayers": 1,
+                    "Idoneth": 1,
+                    "DoK": 1,
+                    "Lumineth": -1,
+                    "Seraphon": -1,
+                    "Stormcast": -2,
+                    "Kharadron": 1
+                },
+                "spielmotivation": {
+                    "__1": "Gewinnorientiert",
+                    "__2": "Spaßorientiert",
+                    "Nighthaunt": 0,
+                    "Ossiarch": -1,
+                    "FEC": 0,
+                    "SBTG": 0,
+                    "Ogor": 1,
+                    "SoB": 2,
+                    "Orruks": 2,
+                    "Gitz": 2,
+                    "Khorne": 2,
+                    "Nurgle": -1,
+                    "Slanesh": -1,
+                    "Tzeentch": -1,
+                    "Skaven": 2,
+                    "STD": -1,
+                    "CoS": 0,
+                    "Sylvaneth": -1,
+                    "Fyreslayers": 1,
+                    "Idoneth": -1,
+                    "DoK": 1,
+                    "Lumineth": -1,
+                    "Seraphon": -1,
+                    "Stormcast": -2,
+                    "Kharadron": 0
+                },
+                "truppengroesse": {
+                    "__1": "Horde / viele Modelle",
+                    "__2": "Elite / wenig Modelle",
+                    "Nighthaunt": -1,
+                    "Ossiarch": -1,
+                    "FEC": 1,
+                    "SBTG": -1,
+                    "Ogor": 1,
+                    "SoB": 2,
+                    "Orruks": -2,
+                    "Gitz": -1,
+                    "Khorne": 1,
+                    "Nurgle": 1,
+                    "Slanesh": -1,
+                    "Tzeentch": 0,
+                    "Skaven": -2,
+                    "STD": 1,
+                    "CoS": 0,
+                    "Sylvaneth": -1,
+                    "Fyreslayers": -1,
+                    "Idoneth": 0,
+                    "DoK": 0,
+                    "Lumineth": -1,
+                    "Seraphon": -1,
+                    "Stormcast": -2,
+                    "Kharadron": 1
+                },
+                "beweglichkeit": {
+                    "__1": "Schwerfällig & Zäh",
+                    "__2": "Flink & Schwach",
+                    "Nighthaunt": 1,
+                    "Ossiarch": -1,
+                    "FEC": 1,
+                    "SBTG": 1,
+                    "Ogor": -2,
+                    "SoB": -2,
+                    "Orruks": -1,
+                    "Gitz": 2,
+                    "Khorne": -1,
+                    "Nurgle": -1,
+                    "Slanesh": 2,
+                    "Tzeentch": 1,
+                    "Skaven": 2,
+                    "STD": -1,
+                    "CoS": 1,
+                    "Sylvaneth": 0,
+                    "Fyreslayers": -1,
+                    "Idoneth": 2,
+                    "DoK": 2,
+                    "Lumineth": 2,
+                    "Seraphon": -1,
+                    "Stormcast": -2,
+                    "Kharadron": 1
+                },
+                "strategie": {
+                    "__1": "Heimlich / Hinterrücks",
+                    "__2": "Direkt / Konfrontativ",
+                    "Nighthaunt": -1,
+                    "Ossiarch": 1,
+                    "FEC": 1,
+                    "SBTG": -1,
+                    "Ogor": 2,
+                    "SoB": 2,
+                    "Orruks": 2,
+                    "Gitz": -2,
+                    "Khorne": 2,
+                    "Nurgle": 1,
+                    "Slanesh": -2,
+                    "Tzeentch": -1,
+                    "Skaven": -2,
+                    "STD": 1,
+                    "CoS": 1,
+                    "Sylvaneth": -1,
+                    "Fyreslayers": 2,
+                    "Idoneth": -1,
+                    "DoK": 2,
+                    "Lumineth": -2,
+                    "Seraphon": 1,
+                    "Stormcast": 2,
+                    "Kharadron": -1
+                },
+                "technologie": {
+                    "__1": "Technologisch fortschrittlich",
+                    "__2": "Klassische Kriegsführung",
+                    "Nighthaunt": 2,
+                    "Ossiarch": 1,
+                    "FEC": 1,
+                    "SBTG": 0,
+                    "Ogor": 2,
+                    "SoB": 2,
+                    "Orruks": 2,
+                    "Gitz": 0,
+                    "Khorne": 1,
+                    "Nurgle": 1,
+                    "Slanesh": 1,
+                    "Tzeentch": 1,
+                    "Skaven": -2,
+                    "STD": 1,
+                    "CoS": -1,
+                    "Sylvaneth": 2,
+                    "Fyreslayers": 2,
+                    "Idoneth": 1,
+                    "DoK": 2,
+                    "Lumineth": -1,
+                    "Seraphon": 1,
+                    "Stormcast": 2,
+                    "Kharadron": -2
+                },
+                "modelle": {
+                    "__1": "Große Auswahl an Modellen",
+                    "__2": "Geringe Auswahl an Modellen",
+                    "Nighthaunt": -1,
+                    "Ossiarch": 0,
+                    "FEC": 0,
+                    "SBTG": -1,
+                    "Ogor": 1,
+                    "SoB": 2,
+                    "Orruks": -1,
+                    "Gitz": -1,
+                    "Khorne": 0,
+                    "Nurgle": 1,
+                    "Slanesh": -2,
+                    "Tzeentch": 0,
+                    "Skaven": -2,
+                    "STD": -1,
+                    "CoS": -1,
+                    "Sylvaneth": 0,
+                    "Fyreslayers": 2,
+                    "Idoneth": 0,
+                    "DoK": 1,
+                    "Lumineth": -1,
+                    "Seraphon": 0,
+                    "Stormcast": -2,
+                    "Kharadron": 1
+                },
+                "helden": {
+                    "__1": "Viele (namenhafte) Helden",
+                    "__2": "Wenig (namenhafte) Helden",
+                    "Nighthaunt": -1,
+                    "Ossiarch": 0,
+                    "FEC": -1,
+                    "SBTG": -2,
+                    "Ogor": 1,
+                    "SoB": 2,
+                    "Orruks": 0,
+                    "Gitz": 0,
+                    "Khorne": 1,
+                    "Nurgle": 0,
+                    "Slanesh": -2,
+                    "Tzeentch": 0,
+                    "Skaven": -2,
+                    "STD": -1,
+                    "CoS": -1,
+                    "Sylvaneth": 0,
+                    "Fyreslayers": 2,
+                    "Idoneth": 1,
+                    "DoK": 1,
+                    "Lumineth": -1,
+                    "Seraphon": 0,
+                    "Stormcast": -2,
+                    "Kharadron": 1
+                }
+            }
         </script>
         <script>
             function generateInputs(name){
@@ -216,7 +528,9 @@
 
             class WOMQuestion extends HTMLElement {
                 static formAssociated = true;
-                static observedAttributes = ["data-value", "double"];
+                static observedAttributes = ["value", "double"];
+
+                _attrs = {};
 
                 static get properties() {
                     return {
@@ -249,20 +563,24 @@
                     this.internals_.setFormValue(this.value_);
                 }
 
+                attributeChangedCallback(name, prev, next) {
+                    this._attrs[name] = next;
+                }
+
                 connectedCallback() {
                     const template = document.getElementById(
                         'wom-question'
                     ).content;
-                    const shadowRoot = this.attachShadow({mode: 'open'});
+                    const shadowRoot = this.attachShadow({mode: 'open', delegatesFocus: true});
                     shadowRoot.appendChild(template.cloneNode(true));
 
                     this.doubleCheckbox = shadowRoot.querySelector('input[name="double"]');
                     this.radio_buttons = shadowRoot.querySelectorAll('input[name="selection"]');
 
                     this.radio_buttons.forEach((radio) => {
-                        radio.addEventListener('change', (event) => {
-                            let v = parseInt(event.target.value);
-                            this.value = v;
+                        radio.addEventListener('input', (event) => {
+                            this.value = parseInt(event.target.value);
+                            this.internals_.setFormValue(this.value);
                         });
                         radio.addEventListener('click', (event) => {
                             setTimeout(() => gotoNext(), 100); /* TODO A11y issue: Navigating with keyboard emits a click event. */
@@ -329,7 +647,7 @@
                 return list;
             }
 
-            function getActiveQuestion() {
+            function getActiveQuestionNo() {
                 for (let i = 0; i < attributes.length; i++) {
                     const question = document.querySelector(`wom-question[name="${attributes[i].id}"]`);
                     if (question.classList.contains('active')) {
@@ -362,7 +680,7 @@
             }
 
             function gotoNext() {
-                const current = getActiveQuestion();
+                const current = getActiveQuestionNo();
                 if (current === undefined) gotoQuestionNo(0);
                 if (current < attributes.length - 1) {
                     gotoQuestionNo(current + 1);
@@ -383,12 +701,22 @@
                 return li;
             }
 
+            const euclideanDistance = (a, b) => Math.hypot(...Object.keys(a).map(k => b[k] - a[k]));
+            const euclideanDistance2 = (a, b) => Object.keys(a).reduce((acc, k) => acc + (b[k] - a[k]) ** 2, 0);
+
+            const cosineSimilarity = (a, b) => {
+                const dotProduct = Object.keys(a).reduce((acc, k) => acc + a[k] * b[k], 0);
+                const magnitudeA = Math.sqrt(Object.keys(a).reduce((acc, k) => acc + a[k] ** 2, 0));
+                const magnitudeB = Math.sqrt(Object.keys(b).reduce((acc, k) => acc + b[k] ** 2, 0));
+                return dotProduct / (magnitudeA * magnitudeB);
+            }
+
             document.addEventListener('DOMContentLoaded', () => {
                 const form = document.getElementById('war-o-mat');
                 const questionList = document.getElementById('question-list');
                 const jumpNav = document.getElementById('jumpnav');
 
-                questions = attributes.map(renderQuestion);
+                const questions = attributes.map(renderQuestion);
                 questions[0].classList.add('active');
 
                 questions.forEach((question, i) => {
@@ -401,9 +729,114 @@
                     if (i === 0) jumpNavButton.classList.add('active');
                     jumpNav.appendChild(wrapInLi(jumpNavButton));
                 });
-            });
 
-            
+              
+
+                form.addEventListener('input', (event) => {
+                    const formData = Object.fromEntries(new FormData(form).entries());
+                    console.log(formData);
+
+                    let vector = [];
+                    let faction_vectors = {};
+
+                    for (const [id, value] of Object.entries(formData)) {
+                        const numValue = parseInt(value);
+                        if (isNaN(numValue)) continue;
+
+                        vector.push(numValue);
+                        vector_for_faction = {};
+
+                        for (const [faction, faction_value] of Object.entries(ATTRIBUTE_FACTION_VALUE[id])) {
+                            if (faction.startsWith('__')) continue;
+                            if (!faction_vectors[faction]) {
+                                faction_vectors[faction] = [];
+                            }
+                            faction_vectors[faction].push(faction_value);
+                        }
+                    }
+
+                    // map over values from faction_vectors and calculate the distance to the vector
+                    const distances = Object.entries(faction_vectors).map(([faction, faction_vector]) => {
+                        return {
+                            faction,
+                            euclidean: euclideanDistance2(vector, faction_vector),
+                            cosine: cosineSimilarity(vector, faction_vector)
+                        }
+                    }).sort((a, b) => a.euclidean - b.euclidean);
+
+                    // set in "result" element with tuple of faction and distance
+
+
+                    // set distances as a table in result
+
+                    const table = document.createElement('table');
+                    const thead = document.createElement('thead');
+                    const tbody = document.createElement('tbody');  
+                    const headerRow = document.createElement('tr');
+                    const headerFaction = document.createElement('th');
+                    headerFaction.textContent = 'Fraktion';
+                    const headerDistance = document.createElement('th');
+                    headerDistance.textContent = 'Distance';
+                    headerRow.appendChild(headerFaction);
+                    
+                    headerRow.appendChild(headerDistance);
+                    thead.appendChild(headerRow);
+                    table.appendChild(thead);   
+
+                    distances.forEach(({faction, euclidean, cosine}, i) => {
+                        if (i > 3) return;
+                        const row = document.createElement('tr');
+                        const factionCell = document.createElement('td');
+                        factionCell.textContent = faction;
+                        const euclideanCell = document.createElement('td');
+                        euclideanCell.textContent = euclidean.toPrecision(2); 
+                        row.appendChild(factionCell);
+                        row.appendChild(euclideanCell);
+                        tbody.appendChild(row);
+                    });
+
+                    table.appendChild(tbody);
+
+                    // second table with cosine similarity
+
+                    const table2 = document.createElement('table');
+                    const thead2 = document.createElement('thead');
+                    const tbody2 = document.createElement('tbody');
+                    const headerRow2 = document.createElement('tr');
+                    const headerFaction2 = document.createElement('th');
+                    headerFaction2.textContent = 'Fraktion';
+                    const headerSimilarity = document.createElement('th');
+                    headerSimilarity.textContent = 'Ähnlichkeit';   
+                    
+                    headerRow2.appendChild(headerFaction2); 
+                    headerRow2.appendChild(headerSimilarity);
+                    thead2.appendChild(headerRow2);
+                    table2.appendChild(thead2); 
+
+                    distances.sort((a, b) => b.cosine - a.cosine);
+                    distances.forEach(({faction, cosine}, i) => {
+                        if (i > 3) return;
+                        const row = document.createElement('tr');
+                        const factionCell = document.createElement('td');
+                        factionCell.textContent = faction;
+                        const cosineCell = document.createElement('td');
+                        cosineCell.textContent = cosine.toPrecision(2);
+                        row.appendChild(factionCell);
+                        row.appendChild(cosineCell);
+                        tbody2.appendChild(row);
+                    }); 
+
+                    table2.appendChild(tbody2); 
+
+                    const your_vector = document.createElement('p');
+                    your_vector.textContent = `Dein Antworten: ${vector}`; 
+                    your_vector.style.gridColumn = '1 / -1';
+                    document.getElementById('result').replaceChildren(your_vector, table, table2);
+
+                    // sort by distance
+                    
+                });
+            });
         </script>
     </head>
 
@@ -528,11 +961,11 @@
                 <div class="options">
                     <label class="option">
                         <input type="radio" name="selection" value="-2"/>
-                        2
+                        -2
                     </label>
                     <label class="option">
                         <input type="radio" name="selection" value="-1"/>
-                        1
+                        -1
                     </label>
                     <label class="option">
                         <input type="radio" name="selection" value="0" />
@@ -540,11 +973,11 @@
                     </label>
                     <label class="option">
                         <input type="radio" name="selection" value="+1" />
-                        1
+                        +1
                     </label>
                     <label class="option">
                         <input type="radio" name="selection" value="+2"/>
-                        2
+                        +2
                     </label>
                 </div>
                 <div class="choice2-label choice-label">
@@ -572,6 +1005,7 @@
             </form>
             <output id="result"></output>
         </main>
-        <footer></footer>
+        <footer>
+        </footer>
     </body>
 </html>
