@@ -1,4 +1,4 @@
-@import url(../../styles/colors.css) layer(utilities);
+@import url(../colors.css) layer(utilities);
 
 :root {
     --comp-jumpnav-outline: var(--color-outline);
