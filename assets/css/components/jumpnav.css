@@ -1,0 +1,42 @@
+@import url(../../styles/colors.css) layer(utilities);
+
+:root {
+    --comp-jumpnav-outline: var(--color-outline);
+    --comp-jumpnav-outline-active: var(--color-primary);
+    --comp-jumpnav-background-color: var(--color-surface-container);
+    --comp-jumpnav-on-background-color: var(--color-on-surface);    
+    --comp-jumpnav-background-color-done: var(--color-primary-container); 
+    --comp-jumpnav-on-background-color-done: var(--color-on-primary-container);
+}
+
+#jumpnav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+#jumpnav > li {
+    margin: 0;
+}
+
+#jumpnav button {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--comp-jumpnav-outline);
+
+    padding: 0;
+
+    font-size: 24px;
+
+    background-color: var(--comp-jumpnav-background-color);
+    color: var(--comp-jumpnav-on-background-color);
+}
+
+#jumpnav button.done {
+    background-color: var(--comp-jumpnav-background-color-done);
+    color: var(--comp-jumpnav-on-background-color-done);
+}
+
+#jumpnav button.active {
+    outline: 1px solid var(--color-primary);
+}

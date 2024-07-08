@@ -3,12 +3,21 @@
     <head>
         <title>War-o-Mat</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="preload" href="assets/styles/reset.css" as="style" />
-        <link rel="preload" href="assets/styles/colors.css" as="style" />
+
         <style>
             @import url(assets/styles/reset.css) layer(reset);
+            @import url(assets/css/layout.css) layer(layout);
+            
             @import url(assets/styles/colors.css) layer(utilities);
+
+            @import url(assets/css/components/stacked-list.css) layer(components);
+            @import url(assets/css/components/jumpnav.css) layer(components);
+
             :root {
+                accent-color: var(--color-primary);
+
+                font-family: sans-serif;
+
                 /* Component Colors */
 
                 --comp-question-background-color: var(--color-surface-container-low);
@@ -16,19 +25,6 @@
                 --comp-option_button-on-background-color: var(--color-on-surface);
                 --comp-option_button-background-active-color: var(--color-primary-container);
                 --comp-option_button-on-background-active-color: var(--color-on-primary-container);
-
-
-                --comp-jumpnav-outline: var(--color-outline);
-                --comp-jumpnav-outline-active: var(--color-primary);
-                --comp-jumpnav-background-color: var(--color-surface-container);
-                --comp-jumpnav-on-background-color: var(--color-on-surface);    
-                --comp-jumpnav-background-color-done: var(--color-primary-container); 
-                --comp-jumpnav-on-background-color-done: var(--color-on-primary-container);
-
-
-                accent-color: var(--color-primary);
-
-                font-family: sans-serif;
             }
 
             ol {
@@ -36,88 +32,8 @@
                 padding: 0;
             }
 
-            body {
-                background-color: var(--color-surface);
-                color: var(--color-on-surface);
-                max-width: 100%;
-                overflow-x: hidden;
-                display: grid;
-                grid-template-columns: [edge-start] 1fr [content-start] min(calc(100% - 2*8px), 800px) [content-end] 1fr [edge-end];
-                grid-auto-rows: auto;
-                grid-template-rows: auto auto 1fr; /* Can I make this, so it isn't depended on the content beeing in the third row? */
-                gap: 8px;
-            }
-
-            body > * {
-                grid-column: content;
-            }
-
-            /* All li after the active */
-            .stacked-list > li:has(wom-question.active) ~ li {
-                translate: 100%;
-            }
-
-            /* All li before the active */
-            .stacked-list > li:has(~ li > wom-question.active) {
-                scale: 0.8;
-            }
-
-            /* All li that are not active */
-            .stacked-list > li:has(wom-question:not(.active)) {
-                opacity: 0;
-                visibility: hidden;
-            }
-
-            .stacked-list > li:has(wom-question) {
-                transition:  
-                    opacity var(--motion-duration-emphasized-decelerate) var(--motion-easing-emphasized-decelerate),
-                    translate var(--motion-duration-emphasized-decelerate) var(--motion-easing-emphasized-decelerate),
-                    scale var(--motion-duration-emphasized-decelerate) var(--motion-easing-emphasized-decelerate);
-            }
-
-            .stacked-list {
-                display: grid;
-                overflow: hidden;
-            }
-
-            .stacked-list > * {
-                grid-area: 1 / 1 / -1 / -1;
-            }
-
             .question-list > :not(:last-child){
                 margin-bottom: 1em;
-            }
-
-            #jumpnav {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 4px;
-            }
-
-            #jumpnav > li {
-                margin: 0;
-            }
-
-            #jumpnav button {
-                width: 40px;
-                height: 40px;
-                border: 1px solid var(--comp-jumpnav-outline);
-
-                padding: 0;
-
-                font-size: 24px;
-
-                background-color: var(--comp-jumpnav-background-color);
-                color: var(--comp-jumpnav-on-background-color);
-            }
-
-            #jumpnav button.done {
-                background-color: var(--comp-jumpnav-background-color-done);
-                color: var(--comp-jumpnav-on-background-color-done);
-            }
-
-            #jumpnav button.active {
-                outline: 1px solid var(--color-primary);
             }
 
 
