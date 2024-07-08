@@ -775,23 +775,23 @@
                     const headerRow = document.createElement('tr');
                     const headerFaction = document.createElement('th');
                     headerFaction.textContent = 'Fraktion';
-                    const headerDistance = document.createElement('th');
-                    headerDistance.textContent = 'Distance';
+                    // const headerDistance = document.createElement('th');
+                    // headerDistance.textContent = 'Distance';
                     headerRow.appendChild(headerFaction);
                     
-                    headerRow.appendChild(headerDistance);
+                    // headerRow.appendChild(headerDistance);
                     thead.appendChild(headerRow);
                     table.appendChild(thead);   
 
                     distances.forEach(({faction, euclidean, cosine}, i) => {
-                        if (i > 3) return;
+                        if (i >= 3) return;
                         const row = document.createElement('tr');
                         const factionCell = document.createElement('td');
                         factionCell.textContent = faction;
-                        const euclideanCell = document.createElement('td');
-                        euclideanCell.textContent = euclidean.toPrecision(2); 
+                        // const euclideanCell = document.createElement('td');
+                        // euclideanCell.textContent = euclidean.toPrecision(2); 
                         row.appendChild(factionCell);
-                        row.appendChild(euclideanCell);
+                        // row.appendChild(euclideanCell);
                         tbody.appendChild(row);
                     });
 
@@ -815,7 +815,7 @@
 
                     distances.sort((a, b) => b.cosine - a.cosine);
                     distances.forEach(({faction, cosine}, i) => {
-                        if (i > 3) return;
+                        if (i >= 3) return;
                         const row = document.createElement('tr');
                         const factionCell = document.createElement('td');
                         factionCell.textContent = faction;
@@ -831,7 +831,7 @@
                     const your_vector = document.createElement('p');
                     your_vector.textContent = `Dein Antworten: ${vector}`; 
                     your_vector.style.gridColumn = '1 / -1';
-                    document.getElementById('result').replaceChildren(your_vector, table, table2);
+                    document.getElementById('result').replaceChildren(table);
 
                     // sort by distance
                     
