@@ -37,6 +37,20 @@
       }
 
 
+      label:has(input[type="checkbox"]) {
+        padding: var(--spacing);
+        display: flex;
+        align-items: center;
+        gap: calc(var(--spacing) / 2);
+      }
+
+      input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        vertical-align: text-top;
+        border-radius: 2px;
+      }
+
       main {
         display: grid;
         grid-template-columns: subgrid;
@@ -546,7 +560,12 @@
                     let vector = [];
                     let faction_vectors = {};
 
-                    for (const [id, value] of Object.entries(formData)) {
+                    for (let [id, value] of Object.entries(formData)) {
+                        if (id.startsWith('double-')) {
+                            id = id.replace('double-', '');
+                            value = formData[id];
+                        }
+
                         const numValue = parseInt(value);
                         if (isNaN(numValue)) continue;
 
@@ -570,6 +589,7 @@
                         }
                     }).sort((a, b) => a.euclidean - b.euclidean);
 
+                    console.log("Vector: ", vector);
 
                     const resultList = document.getElementById("result-list");
                     resultList.replaceChildren(
