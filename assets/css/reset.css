@@ -30,3 +30,12 @@ body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
 }
+
+ol {
+    list-style-type: none;
+    padding: 0;
+}
+
+button {
+    font: inherit;
+}

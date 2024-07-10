@@ -1,0 +1,62 @@
+<fieldset class="question" data-id="{{ include.question.id }}">
+  <header>
+    <h2>
+        {{ include.question.title }}
+    </h2>
+    <legend>
+        {{ include.question.description }}
+    </legend>
+  </header>
+  <div class="chooser">
+    <div class="choice1-label choice-label">
+        {{ include.question.option1 }}
+    </div>
+
+    <div class="options">
+      <label class="option">
+        <input
+          type="radio"
+          name="{{ include.question.id }}"
+          value="-2" />
+        -2
+      </label>
+      <label class="option">
+        <input
+          type="radio"
+          name="{{ include.question.id }}"
+          value="-1" />
+        -1
+      </label>
+      <label class="option">
+        <input
+          type="radio"
+          name="{{ include.question.id }}"
+          value="0" />
+        0
+      </label>
+      <label class="option">
+        <input
+          type="radio"
+          name="{{ include.question.id }}"
+          value="+1" />
+        +1
+      </label>
+      <label class="option">
+        <input
+          type="radio"
+          name="{{ include.question.id }}"
+          value="+2" />
+        +2
+      </label>
+    </div>
+    <div class="choice2-label choice-label">
+        {{ include.question.option2 }}
+    </div>
+  </div>
+  <!--
+  <label class="double">
+    <input name="double-{{ include.question.id }}" type="checkbox" />
+    Das ist mir wichtig!
+  </label>
+  -->
+</fieldset>

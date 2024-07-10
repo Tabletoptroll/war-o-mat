@@ -1,5 +1,7 @@
 :root {
-    --primary-chroma: 0.1; /* 0.114 */
+    /* Automatische Generierung der Grundfarben aus der Primärfarbe */
+
+    --primary-chroma: 0.1;
     --primary-hue: 123.11deg;
     --primary-ch: var(--primary-chroma) var(--primary-hue);
 
@@ -18,9 +20,14 @@
     --neutral-variant-chroma: calc(var(--neutral-chroma) * 2.0);
     --neutral-variant-hue: var(--neutral-hue);
     --neutral-variant-ch: var(--neutral-variant-chroma) var(--neutral-variant-hue);
+}
 
-
-    /* Color Roles */
+:root {
+    /* Hier werden semantische Farben generiert. 
+       Ist das nicht cool? Und wahnsinnig overengineered?
+       Kontrast passt immer!
+       "Inspiriert" von Material Design 3 : https://m3.material.io/foundations/design-tokens/overview
+    */
     --color-primary: oklch(47.45% var(--primary-ch));
     --color-on-primary: oklch(100% var(--primary-ch));
 
@@ -43,13 +50,9 @@
 
 
     --color-outline: oklch(50% var(--neutral-variant-ch));
-
-    --motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
-    --motion-duration-medium4: 400ms;
-
-    --motion-duration-emphasized-decelerate: var(--motion-duration-medium4);
 }
 
+/* Grundfarben werden für den Darkmode überschrieben. */
 @media (prefers-color-scheme: dark) {
     :root {
         color-scheme: dark;

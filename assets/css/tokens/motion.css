@@ -1,0 +1,6 @@
+:root {
+    --motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
+    --motion-duration-medium4: 400ms;
+
+    --motion-duration-emphasized-decelerate: var(--motion-duration-medium4);
+}

@@ -1,0 +1,12 @@
+id	title	description	option1	option2
+casting	Fähigkeiten	Ziehst du es vor, mächtige Zauber zu wirken oder die Götter um Unterstützung anzurufen?	Zauber wirken	Götter anrufen
+kampfstil	Kampfdistanz	Stellst du dich dem Feind lieber im Nahkampf oder setzt du auf den Kampf aus der Distanz?	Nahkampflastig	Fernkampflastig
+temperament	Temperament	Bist du eher kalt und berechnend oder zeigst du deine Macht mit heißblütiger Wildheit?	Kalt / Berechnend	Heißblütig / Wild
+aufstellung	Truppenaufstellung	Bevorzugst du spezialisierte Einheiten oder setzt du auf vielseitige Kämpfer?	Viele Spezialisten	Viele Generalisten
+spielmotivation	Spielmotivationen	Strebst du nach dem ultimativen Sieg oder ist dir der Spaß am Spiel wichtiger?	Gewinnorientiert	Spaßorientiert
+truppengroesse	Truppengröße	Setzt du auf eine Horde von vielen Modellen oder führst du eine Eliteeinheit mit wenigen Modellen?	Horde / viele Modelle	Elite / wenig Modelle
+beweglichkeit	Beweglichkeit und Widerstandsfähigkeit	Bevorzugst du schwerfällige und zähe Einheiten oder lieber flinke und schwache Kämpfer?	Schwerfällig & Zäh	Flink & Schwach
+strategie	Kampfstrategie	Gehst du heimlich und hinterrücks vor oder stellst du dich dem Feind direkt und konfrontativ?	Heimlich/ Hinterrücks	Direkt/ Konfrontativ
+technologie	Kriegstechnologie	Vertraust du auf technologisch fortschrittliche Kriegsführung oder bleibst du der klassischen Kriegsführung treu?	Technologisch fortschrittlich	Klassische Kriegsführung
+modelle	Modellauswahl	Bevorzugst du eine große Auswahl an verschiedenen Modellen oder eine geringe Auswahl an spezialisierten Modellen?	Große Auswahl an Modellen	Geringe Auswahl an Modellen
+helden	Heldenanzahl	Schätzt du viele namenhafte Helden oder ziehst du wenige, aber mächtige Helden vor?	Viele (namenhafte) Helden	Wenig (namenhafte) Helden

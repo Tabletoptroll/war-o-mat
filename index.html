@@ -1,134 +1,155 @@
+---
+
+---
+
 <!DOCTYPE html>
 <html lang="de">
-    <head>
-        <title>War-o-Mat</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <title>War-o-Mat</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <style>
-            @import url(assets/css/reset.css) layer(reset);
-            @import url(assets/css/layout.css) layer(layout);
-            
-            @import url(assets/css/colors.css) layer(utilities);
+    <style>
+      @import url('assets/css/reset.css') layer(reset);
+      @import url('assets/css/layout.css') layer(layout);
 
-            @import url(assets/css/components/stacked-list.css) layer(components);
-            @import url(assets/css/components/jumpnav.css) layer(components);
+      @import url('assets/css/tokens/motion.css') layer(tokens);
+      @import url('assets/css/tokens/colors.css') layer(tokens);
+      @import url('assets/css/tokens/typography.css') layer(tokens);
 
-            :root {
-                accent-color: var(--color-primary);
+      @import url('assets/css/components/stacked-list.css') layer(components);
+      @import url('assets/css/components/jumpnav.css') layer(components);
+      @import url('assets/css/components/question.css') layer(components);
 
-                font-family: sans-serif;
+      :root {
+        --primary-hue: 90deg;
+        /* Gold */
+        /* 123deg ~ TableTopTroll grün */
 
-                /* Component Colors */
+        accent-color: var(--color-primary);
 
-                --comp-question-background-color: var(--color-surface-container-low);
-                --comp-option_button-background-color: var(--color-surface-container);
-                --comp-option_button-on-background-color: var(--color-on-surface);
-                --comp-option_button-background-active-color: var(--color-primary-container);
-                --comp-option_button-on-background-active-color: var(--color-on-primary-container);
-            }
+        font-family: sans-serif;
 
-            ol {
-                list-style-type: none;
-                padding: 0;
-            }
+        scrollbar-color: var(--color-primary) transparent;
+      }
 
-            .question-list > :not(:last-child){
-                margin-bottom: 1em;
-            }
+      h1 {
+        margin-block-start: 8px;
+      }
 
 
-            #result {
-                white-space: pre; 
-                display: grid; 
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 1em;
+      main {
+        display: grid;
+        grid-template-columns: subgrid;
+        gap: inherit;
+        justify-items: center;
+      }
 
-                & th {
-                    text-align: left;
-                }
-            }
-        </style>
-        <script>
-            const attributes = [
-                {
-                    "id": "casting",
-                    "title": "Fähigkeiten",
-                    "description": "Ziehst du es vor, mächtige Zauber zu wirken oder die Götter um Unterstützung anzurufen?",
-                    "option1": "Zauber wirken",
-                    "option2": "Götter anrufen"
-                },
-                {
-                    "id": "kampfstil", 
-                    "title": "Kampfdistanz",
-                    "description": "Stellst du dich dem Feind lieber im Nahkampf oder setzt du auf den Kampf aus der Distanz?",
-                    "option1": "Nahkampflastig",
-                    "option2": "Fernkampflastig"
-                },
-                {
-                    "id": "temperament",
-                    "title": "Temperament",
-                    "description": "Bist du eher kalt und berechnend oder zeigst du deine Macht mit heißblütiger Wildheit?",
-                    "option1": "Kalt / Berechnend",
-                    "option2": "Heißblütig / Wild"
-                },
-                {
-                    "id": "aufstellung",
-                    "title": "Truppenaufstellung",
-                    "description": "Bevorzugst du spezialisierte Einheiten oder setzt du auf vielseitige Kämpfer?",
-                    "option1": "Viele Spezialisten",
-                    "option2": "Viele Generalisten"
-                },
-                {
-                    "id": "spielmotivation",
-                    "title": "Spielmotivationen",
-                    "description": "Strebst du nach dem ultimativen Sieg oder ist dir der Spaß am Spiel wichtiger?",
-                    "option1": "Gewinnorientiert",
-                    "option2": "Spaßorientiert"
-                },
-                {
-                    "id": "truppengroesse",
-                    "title": "Truppengröße",
-                    "description": "Setzt du auf eine Horde von vielen Modellen oder führst du eine Eliteeinheit mit wenigen Modellen?",
-                    "option1": "Horde / viele Modelle",
-                    "option2": "Elite / wenig Modelle"
-                },
-                {
-                    "id": "beweglichkeit",
-                    "title": "Beweglichkeit und Widerstandsfähigkeit",
-                    "description": "Bevorzugst du schwerfällige und zähe Einheiten oder lieber flinke und schwache Kämpfer?",
-                    "option1": "Schwerfällig & Zäh",
-                    "option2": "Flink & Schwach"
-                },
-                {
-                    "id": "strategie",
-                    "title": "Kampfstrategie",
-                    "description": "Gehst du heimlich und hinterrücks vor oder stellst du dich dem Feind direkt und konfrontativ?",
-                    "option1": "Heimlich/ Hinterrücks",
-                    "option2": "Direkt/ Konfrontativ"
-                },
-                {
-                    "id": "technologie",
-                    "title": "Kriegstechnologie",
-                    "description": "Vertraust du auf technologisch fortschrittliche Kriegsführung oder bleibst du der klassischen Kriegsführung treu?",
-                    "option1": "Technologisch fortschrittlich",
-                    "option2": "Klassische Kriegsführung"
-                },
-                {
-                    "id": "modelle",
-                    "title": "Modellauswahl",
-                    "description": "Bevorzugst du eine große Auswahl an verschiedenen Modellen oder eine geringe Auswahl an spezialisierten Modellen?",
-                    "option1": "Große Auswahl an Modellen",
-                    "option2": "Geringe Auswahl an Modellen"
-                },
-                {
-                    "id": "helden",
-                    "title": "Heldenanzahl",
-                    "description": "Schätzt du viele namenhafte Helden oder ziehst du wenige, aber mächtige Helden vor?",
-                    "option1": "Viele (namenhafte) Helden",
-                    "option2": "Wenig (namenhafte) Helden"
-                }
-            ]
+      #war-o-mat {
+        display: grid;
+        gap: inherit;
+      }
 
+
+      #result {
+        margin-block-start: 1.5em;
+      }
+
+      #result h2 {
+        margin-block-end: 1em;
+      }
+
+      #result ol {
+        display: grid;
+        gap: 2em;
+
+        & > * {
+          width: min(55ch, 100%);
+        }
+
+         & > :nth-child(1) {
+          justify-self: center;
+        }
+
+         & > :nth-child(2) {
+          justify-self: start;
+        }
+
+         & > :nth-child(3) {
+          justify-self: end;
+        }
+      }
+
+      .button {
+        display: grid;
+        place-items: center;
+        height: 40px;
+        padding-inline: 24px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 500;
+
+        line-height: 20pt;
+        letter-spacing: 0.1pt;
+
+        border: none;
+        border-radius: 2em;
+
+        width: max-content;
+
+        color: var(--color-primary);
+        background: none;
+      }
+
+      .button.full-width {
+        width: 100%;
+      }
+
+      .button.text {
+        padding: 12px;
+      }
+
+      .tonal {
+        background-color: var(--color-secondary-container);
+        color: var(--color-on-secondary-container);
+      }
+
+      .filled {
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+      }
+
+      .button > .icon {
+        font-size: 18px;
+      }
+
+      .icon-button {
+        display: grid;
+        place-items: center;
+        height: 40px;
+        width: 40px;
+        padding: 0;
+
+        border: none;
+        border-radius: 50%;
+
+        font-size: 24px;
+        font-weight: bold;
+        line-height: normal;
+
+        background: none;
+        color: var(--color-on-surface-variant);
+      }
+
+      .referal-link {
+        background-color: var(--color-primary);
+        color: var(--color-on-primary);
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+    <script>
             const ATTRIBUTE_FACTION_VALUE = {
                 "casting": {
                     "__1": "Zauber wirken",
@@ -428,225 +449,95 @@
                     "Kharadron": 1
                 }
             }
-        </script>
-        <script>
-            function generateInputs(name){
-                const inputs = {};
-                [-2, -1, 0, 1, 2].forEach((input) => {
-                    const radio = document.createElement('input');
-                    radio.type = 'radio';
-                    radio.name = name;
-                    radio.value = input;
-                    inputs[input] = radio;
-                });
-                return inputs;
-            };
-
-            class WOMQuestion extends HTMLElement {
-                static formAssociated = true;
-                static observedAttributes = ["value", "double"];
-
-                _attrs = {};
-
-                static get properties() {
-                    return {
-                        value: {type: Number},
-                        double: {type: Boolean},
-                    };
-                }
-
-                get value() { 
-                    return this.value_ ? this.value_ * (this.doubleCheckbox.checked ? 2 : 1) : 0
-                }
-                set value(v) { 
-                    this.value_ = v * (this.doubleCheckbox.checked ? 2 : 1);
-                    this.setAttribute('value', this.value_);
-                    this.internals_.setFormValue(this.value_);
-                }
-
-                get double() { return this.double_; }
-                set double(v) { 
-                    this.double_ = v;
-                    this.doubleCheckbox.checked = v;
-                    this.setAttribute('double', v);
-                }
-
-                constructor() {
-                    super();
-                    this.value_ = "";
-                    this.double_ = false;
-                    this.internals_ = this.attachInternals();
-                    this.internals_.setFormValue(this.value_);
-                }
-
-                attributeChangedCallback(name, prev, next) {
-                    this._attrs[name] = next;
-                }
-
-                connectedCallback() {
-                    const template = document.getElementById(
-                        'wom-question'
-                    ).content;
-                    const shadowRoot = this.attachShadow({mode: 'open', delegatesFocus: true});
-                    shadowRoot.appendChild(template.cloneNode(true));
-
-                    this.doubleCheckbox = shadowRoot.querySelector('input[name="double"]');
-                    this.radio_buttons = shadowRoot.querySelectorAll('input[name="selection"]');
-
-                    this.radio_buttons.forEach((radio) => {
-                        radio.addEventListener('input', (event) => {
-                            this.value = parseInt(event.target.value);
-                            this.internals_.setFormValue(this.value);
-                        });
-                        radio.addEventListener('click', (event) => {
-                            setTimeout(() => gotoNext(), 100); /* TODO A11y issue: Navigating with keyboard emits a click event. */
-                        });
-                    });
-
-                    this.doubleCheckbox.addEventListener('change', (event) => {
-                        this.double = event.target.checked;
-                    });
-                }
-            };
-
-            customElements.define('wom-question', WOMQuestion);
-        </script>
-        <script>
-
-            function renderQuestion({
-                id, 
-                title, 
-                description, 
-                option1: option1_text, 
-                option2: option2_text
-            }) {
-                const question = document.createElement('wom-question');
-                question.setAttribute('name', id);
-
-                const titleSlot = document.createElement('span');
-                titleSlot.setAttribute('slot', 'title');
-                titleSlot.appendChild(document.createTextNode(title));
-                question.appendChild(titleSlot);
-
-                const descriptionSlot = document.createElement('span'); 
-                descriptionSlot.setAttribute('slot', 'description');
-                descriptionSlot.appendChild(document.createTextNode(description));
-                question.appendChild(descriptionSlot); 
-
-                const option1 = document.createElement('span');
-                option1.setAttribute('slot', 'option1');
-                option1.appendChild(document.createTextNode(option1_text));
-                question.appendChild(option1);
-
-                const option2 = document.createElement('span');
-                option2.setAttribute('slot', 'option2');
-                option2.appendChild(document.createTextNode(option2_text));
-                question.appendChild(option2);
-                
-                const listElement = document.createElement('li');
-                listElement.appendChild(question);
-                listElement.ariaLabel = title;
-
-                return question;
-            }
-
-            function renderQuestionList(questions) {
-                const list = document.createElement('ol');
-                list.classList.add('question-list');
-
-                questions.forEach((question) => {
-                    const li  = document.createElement('li');
-                    li.appendChild(question);
-                    list.appendChild(li);
-                });
-
-                return list;
+    </script>
+    <script>
+            function revealResult() {
+                document.getElementById('show-results-button').remove();
+                document.getElementById('result').classList.remove('hidden');
             }
 
             function getActiveQuestionNo() {
-                for (let i = 0; i < attributes.length; i++) {
-                    const question = document.querySelector(`wom-question[name="${attributes[i].id}"]`);
-                    if (question.classList.contains('active')) {
-                        return i;
+                const active_question = document.querySelector('#question-list > .active');
+                return !active_question ? 0 : [...active_question.parentNode.children].indexOf(active_question);
+            }
+
+            function syncJumpNav(){
+                const questionList = document.getElementById('question-list');
+                const jumpNav = document.getElementById('jumpnav');
+
+                // Set jumpNav item to .done if question input is :checked
+                questionList.querySelectorAll('li').forEach((listItem, i) => {
+                    const checked = listItem.querySelector('input:checked');
+                    const active = listItem.classList.contains('active');
+                    const jumpNavItem = jumpNav.children[i];
+                    if (checked) {
+                        jumpNavItem.classList.add('done');
+                    } else {
+                        jumpNavItem.classList.remove('done');
                     }
-                }
+                    if (active) {
+                        jumpNavItem.classList.add('active');
+                    } else {
+                        jumpNavItem.classList.remove('active');
+                    }
+                });
             }
 
             function gotoQuestionNo(questionNo) {
-                for (let i = 0; i < attributes.length; i++) {
-                    const question = document.querySelector(`wom-question[name="${attributes[i].id}"]`);
-                    if (i === questionNo) {
-                        question.classList.add('active');
-                    } else {
-                        question.classList.remove('active');
-                    }
+                const question_list = document.getElementById('question-list');
+                const active_questions = question_list.querySelectorAll('.active');
+                active_questions.forEach((question) => question.classList.remove('active'));
+                active_question = question_list.children[questionNo]
+                active_question.classList.add('active');
 
-                    const navitem = document.querySelector(`#jumpnav li:nth-child(${i+1}) button`);
-                    if (question.hasAttribute('value')) {
-                        navitem.classList.add('done');
-                    } else {
-                        navitem.classList.remove('done');
-                    }
-                    if (i === questionNo) {
-                        navitem.classList.add('active');
-                    } else {
-                        navitem.classList.remove('active');
-                    }
-                }
+                syncJumpNav();
             }
 
             function gotoNext() {
                 const current = getActiveQuestionNo();
                 if (current === undefined) gotoQuestionNo(0);
-                if (current < attributes.length - 1) {
+
+                const questions = document.getElementById('question-list').children;
+                if (current < questions.length - 1) {
                     gotoQuestionNo(current + 1);
+                } else {
+                    revealResult();
                 }
             }
 
-            function renderJumpNavButton(label, onClick){
-                const button = document.createElement('button');
-                button.addEventListener('click', onClick);
-                button.textContent = label;
-                button.setAttribute('aria-label', `Frage ${label}`);
-                return button;
+            function unlockSkipButton() {
+                document.getElementById('show-results-button').classList.remove('hidden');
             }
 
-            function wrapInLi(element) {
-                const li = document.createElement('li');
-                li.appendChild(element);
-                return li;
+            function complete(question) {
+                gotoNext();
+                unlockSkipButton();
+                syncJumpNav();
             }
+
 
             const euclideanDistance = (a, b) => Math.hypot(...Object.keys(a).map(k => b[k] - a[k]));
-            const euclideanDistance2 = (a, b) => Object.keys(a).reduce((acc, k) => acc + (b[k] - a[k]) ** 2, 0);
-
-            const cosineSimilarity = (a, b) => {
-                const dotProduct = Object.keys(a).reduce((acc, k) => acc + a[k] * b[k], 0);
-                const magnitudeA = Math.sqrt(Object.keys(a).reduce((acc, k) => acc + a[k] ** 2, 0));
-                const magnitudeB = Math.sqrt(Object.keys(b).reduce((acc, k) => acc + b[k] ** 2, 0));
-                return dotProduct / (magnitudeA * magnitudeB);
-            }
+            const euclideanQuadraticDistance = (a, b) => Object.keys(a).reduce((acc, k) => acc + (b[k] - a[k]) ** 2, 0);
 
             document.addEventListener('DOMContentLoaded', () => {
                 const form = document.getElementById('war-o-mat');
                 const questionList = document.getElementById('question-list');
                 const jumpNav = document.getElementById('jumpnav');
 
-                const questions = attributes.map(renderQuestion);
-                questions[0].classList.add('active');
-
-                questions.forEach((question, i) => {
-                    const questionItem = wrapInLi(question);
-                    questionItem.ariaLabel = question.attributes.name.value;
-                    questionList.appendChild(questionItem);
-
-                    const navLabel = `${i+1}`;
-                    const jumpNavButton = renderJumpNavButton(navLabel, () => gotoQuestionNo(i))
-                    if (i === 0) jumpNavButton.classList.add('active');
-                    jumpNav.appendChild(wrapInLi(jumpNavButton));
+                questionList.querySelectorAll('input[type="radio"]').forEach((radio) => {
+                    radio.addEventListener('change', (event) => {
+                        complete(event.target.closest('.question'));
+                    });
                 });
+      
 
-              
+                form.addEventListener('reset', (event) => {
+                    setTimeout(function() {
+                        gotoQuestionNo(0);
+                        document.getElementById('show-results-button').classList.add('hidden');
+                        syncJumpNav();
+                     }, 10);
+                });
 
                 form.addEventListener('input', (event) => {
                     const formData = Object.fromEntries(new FormData(form).entries());
@@ -675,253 +566,95 @@
                     const distances = Object.entries(faction_vectors).map(([faction, faction_vector]) => {
                         return {
                             faction,
-                            euclidean: euclideanDistance2(vector, faction_vector),
-                            cosine: cosineSimilarity(vector, faction_vector)
+                            euclidean: euclideanQuadraticDistance(vector, faction_vector)
                         }
                     }).sort((a, b) => a.euclidean - b.euclidean);
 
-                    // set in "result" element with tuple of faction and distance
 
-
-                    // set distances as a table in result
-
-                    const table = document.createElement('table');
-                    const thead = document.createElement('thead');
-                    const tbody = document.createElement('tbody');  
-                    const headerRow = document.createElement('tr');
-                    const headerFaction = document.createElement('th');
-                    headerFaction.textContent = 'Fraktion';
-                    // const headerDistance = document.createElement('th');
-                    // headerDistance.textContent = 'Distance';
-                    headerRow.appendChild(headerFaction);
-                    
-                    // headerRow.appendChild(headerDistance);
-                    thead.appendChild(headerRow);
-                    table.appendChild(thead);   
-
-                    distances.forEach(({faction, euclidean, cosine}, i) => {
-                        if (i >= 3) return;
-                        const row = document.createElement('tr');
-                        const factionCell = document.createElement('td');
-                        factionCell.textContent = faction;
-                        // const euclideanCell = document.createElement('td');
-                        // euclideanCell.textContent = euclidean.toPrecision(2); 
-                        row.appendChild(factionCell);
-                        // row.appendChild(euclideanCell);
-                        tbody.appendChild(row);
-                    });
-
-                    table.appendChild(tbody);
-
-                    // second table with cosine similarity
-
-                    const table2 = document.createElement('table');
-                    const thead2 = document.createElement('thead');
-                    const tbody2 = document.createElement('tbody');
-                    const headerRow2 = document.createElement('tr');
-                    const headerFaction2 = document.createElement('th');
-                    headerFaction2.textContent = 'Fraktion';
-                    const headerSimilarity = document.createElement('th');
-                    headerSimilarity.textContent = 'Ähnlichkeit';   
-                    
-                    headerRow2.appendChild(headerFaction2); 
-                    headerRow2.appendChild(headerSimilarity);
-                    thead2.appendChild(headerRow2);
-                    table2.appendChild(thead2); 
-
-                    distances.sort((a, b) => b.cosine - a.cosine);
-                    distances.forEach(({faction, cosine}, i) => {
-                        if (i >= 3) return;
-                        const row = document.createElement('tr');
-                        const factionCell = document.createElement('td');
-                        factionCell.textContent = faction;
-                        const cosineCell = document.createElement('td');
-                        cosineCell.textContent = cosine.toPrecision(2);
-                        row.appendChild(factionCell);
-                        row.appendChild(cosineCell);
-                        tbody2.appendChild(row);
-                    }); 
-
-                    table2.appendChild(tbody2); 
-
-                    const your_vector = document.createElement('p');
-                    your_vector.textContent = `Dein Antworten: ${vector}`; 
-                    your_vector.style.gridColumn = '1 / -1';
-                    document.getElementById('result').replaceChildren(table);
-
-                    // sort by distance
-                    
+                    const resultList = document.getElementById("result-list");
+                    resultList.replaceChildren(
+                        ...distances.slice(0, 3).map(({faction, euclidean}) => {
+                            const template = document.getElementById(faction);
+                            return template.content.cloneNode(true);
+                        })
+                    );
                 });
             });
-        </script>
-    </head>
+    </script>
+  </head>
 
-    <template id="wom-question">
-        <style>
-            * {
-                margin: 0;
-                box-sizing: border-box;
-            }
+  <body>
+    <h1>War-o-Mat</h1>
 
-            h2 {
-                grid-column: 0 / -0;
-                margin-block-end: 0.5em;
-            }
 
-            .question {
-                --spacing: 8px;
-                display: grid;
-                
-                align-items: center;
-                gap: calc(2 * var(--spacing));
-
-                border: 1px solid var(--color-outline);
-                padding: var(--spacing);
-                
-
-                background-color: var(--comp-question-background-color, transparent);
-                color: var(--color-on-surface, black);
-
-                 
-            }
-
-            .chooser {
-                display: grid;
-                align-items: center;
-                grid-auto-rows: auto; 
-                grid-template-columns: 1fr auto 1fr;
-                grid-template-rows: repeat(3, auto); 
-                grid-template-areas: 
-                    "choice1 . choice2"
-                    "options options options"
-                    "double double double";  
-            }
-
-            .chooser .choice1-label {
-                grid-area: choice1;
-            }
-
-            .chooser .choice2-label {
-                grid-area: choice2;
-                text-align: end;
-                justify-self: flex-end;
-            }
-
-            .choice-label {
-                font-weight: bold;
-            }
-
-            .double {
-                grid-column: 1 / -1;
-                justify-self: center;
-            }
-
-            .options {
-                display: grid;
-                grid-area: options;
-                grid-template-columns: repeat(5, 1fr);
-                gap: var(--spacing);
-                border: none; 
-            }
-
-            .option {
-                min-height: 48px;
-                min-width: 48px;
-                padding: 0;
-
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                background-color: var(--comp-option_button-background-color);
-                color: var(--comp-option_button-on-background-color);
-                
-                font-size: var(--option-font-size, 24px);
-                font-weight: var(--option-font-weight, bold);
-            }
-
-            .option:focus-within {
-                outline-offset: 2px;
-                outline: 2px solid var(--color-primary);
-                ;
-            }
-
-            input[type="radio"] {
-                appearance: none;
-                width: 0;
-                height: 0;
-            }
-
-            .option:has(> input:checked) {
-                background-color: var(--comp-option_button-background-active-color);
-                color: var(--comp-option_button-on-background-active-color);
-            }
-        </style>
-
-        <fieldset class="question">
-            <header>
-                <h2>
-                    <slot name="title">Magische Fähigkeiten</slot>
-                </h2>
-                <legend>
-                    <slot name="description">Ziehst du es vor, mächtige Zauber zu wirken oder die Götter um Unterstützung anzurufen?</slot>
-                </legend>
-            </header>
-            <div class="chooser">
-                <div class="choice1-label choice-label">
-                    <slot name="option1">
-                        Zauber wirken
-                    </slot>
-                </div>
-                
-                <div class="options">
-                    <label class="option">
-                        <input type="radio" name="selection" value="-2"/>
-                        -2
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="selection" value="-1"/>
-                        -1
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="selection" value="0" />
-                        0
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="selection" value="+1" />
-                        +1
-                    </label>
-                    <label class="option">
-                        <input type="radio" name="selection" value="+2"/>
-                        +2
-                    </label>
-                </div>
-                <div class="choice2-label choice-label">
-                    <slot name="option2">
-                        Götter anrufen
-                    </slot>
-                </div>
-            </div>
-            <label class="double">
-                <input name="double" type="checkbox"/> 
-                Das ist mir wichtig!           
-            </label>
-        </fieldset>
-    </template>
-
-    <body>
-        
-        <h1>War-o-Mat</h1>
-        <nav>
-            <ol id="jumpnav"></ol>
+    <main>
+      <form id="war-o-mat">
+        <nav style="display: flex; justify-content: space-between">
+          <ol id="jumpnav">
+            {% for attribute in site.data.csv.attributes %}
+              <li
+                {% if forloop.first %}
+                class="active"
+                {% endif %}>
+                <a aria-label="Frage {{ forloop.index }}" onclick="gotoQuestionNo({{ forloop.index0 }})">
+                  {{ forloop.index }}
+                </a>
+              </li>
+            {% endfor %}
+          </ol>
+          <button
+            class="icon-button"
+            type="reset"
+            aria-label="Zurücksetzen">
+            ↺
+          </button>
         </nav>
-        <main>
-            <form id="war-o-mat">
-                <ol id="question-list" class="stacked-list"></ol>
-            </form>
-            <output id="result"></output>
-        </main>
-        <footer>
-        </footer>
-    </body>
+        <ol id="question-list" class="stacked-list">
+          {% for attribute in site.data.csv.attributes %}
+            <li
+              id="question-{{ forloop.index }}"
+              {% if forloop.first %}
+              class="active"
+              {% endif %}>
+              {% include question.html question=attribute %}
+            </li>
+          {% endfor %}
+        </ol>
+        <button
+          id="show-results-button"
+          class="button text hidden"
+          onclick="event.preventDefault(); revealResult();"
+          style="justify-self: center;">
+          Zeig mir meine Fraktion jetzt!
+        </button>
+        <output class="hidden" id="result">
+          <h2>Für dich empfohlen</h2>
+          <ol id="result-list"></ol>
+        </output>
+      </form>
+    </main>
+    <footer>
+
+      <input
+        style="display: none; width: 100%"
+        type="range"
+        value="46"
+        min="0"
+        max="360"
+        oninput="document.querySelector(':root').style.setProperty('--primary-hue', event.target.value)" />
+    </footer>
+  </body>
+
+  {% comment %}
+    Hier werden die Templates für die Fraktionen generiert.
+  {% endcomment %}
+  {% for faction in site.data.csv.factions %}
+    <template id="{{faction.id}}">
+      <article>
+        <h3>{{ faction.full_name }}</h3>
+        <p style="margin-block-end: 1em;">{{ faction.description }}</p>
+        <a class="button filled" href="{{faction.affiliate_link}}">Hier geht's zum Set!</a>
+      </article>
+    </template>
+  {% endfor %}
 </html>

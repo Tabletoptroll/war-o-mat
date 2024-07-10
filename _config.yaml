@@ -1,0 +1,19 @@
+exclude:
+  - tabletop-troll.json
+
+tsv_reader:
+  converters:
+    - integer
+
+exclude:
+  - tabletop-troll.json
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

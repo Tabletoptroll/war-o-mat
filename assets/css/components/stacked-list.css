@@ -1,22 +1,21 @@
-/* Replace wom-question with class */
 
 /* All li after the active */
-.stacked-list > li:has(wom-question.active) ~ li {
+.stacked-list > li.active ~ li {
     translate: 100%;
 }
 
 /* All li before the active */
-.stacked-list > li:has(~ li > wom-question.active) {
+.stacked-list > li:has(~ li.active) {
     scale: 0.8;
 }
 
 /* All li that are not active */
-.stacked-list > li:has(wom-question:not(.active)) {
+.stacked-list > li:not(.active) {
     opacity: 0;
     visibility: hidden;
 }
 
-.stacked-list > li:has(wom-question) {
+.stacked-list > li {
     transition:  
         opacity var(--motion-duration-emphasized-decelerate) var(--motion-easing-emphasized-decelerate),
         translate var(--motion-duration-emphasized-decelerate) var(--motion-easing-emphasized-decelerate),
