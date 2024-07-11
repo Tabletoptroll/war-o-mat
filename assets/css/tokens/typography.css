@@ -1,5 +1,26 @@
 :root {
-    font-family: sans-serif;
-    font-size: 14px;
-    line-height: 24px;
+    --plain-font: sans-serif;
+
+    --sys-weight-regular: 400;
+    --sys-weight-medium: 500;
+    --sys-weight-bold: 700;
+
+    --typescale-body-large-font: var(--plain-font);
+    --typescale-body-large-size: 1rem;
+    --typescale-body-large-line-height: 1.5rem;
+    --typescale-body-large-weight: var(--sys-weight-regular);
+    --typescale-body-large-tracking: 0.03125rem;
+
+    --typescale-label-large-font: var(--plain-font);
+    --typescale-label-large-size: .875rem;
+    --typescale-label-large-line-height: 1.25rem;
+    --typescale-label-large-weight: var(--sys-weight-medium);
+    --typescale-label-large-tracking: 0.00625rem;
+    
+    /* Defaults */
+    font-family: var(--typescale-body-large-font);
+    font-size: var(--typescale-body-large-size);
+    font-weight: var(--typescale-body-large-weight);
+    line-height: var(--typescale-body-large-line-height);
+    letter-spacing: var(--typescale-body-large-tracking);
 }

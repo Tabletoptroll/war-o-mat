@@ -19,6 +19,7 @@
       @import url('assets/css/components/stacked-list.css') layer(components);
       @import url('assets/css/components/jumpnav.css') layer(components);
       @import url('assets/css/components/question.css') layer(components);
+      @import url('assets/css/components/button.css') layer(components);
 
       :root {
         --primary-hue: 90deg;
@@ -26,14 +27,11 @@
         /* 123deg ~ TableTopTroll grün */
 
         accent-color: var(--color-primary);
-
-        font-family: sans-serif;
-
         scrollbar-color: var(--color-primary) transparent;
       }
 
       h1 {
-        margin-block-start: 8px;
+        margin-block-start: 0.5rem;
       }
 
 
@@ -93,49 +91,6 @@
         }
       }
 
-      .button {
-        display: grid;
-        place-items: center;
-        height: 40px;
-        padding-inline: 24px;
-        text-align: center;
-        text-decoration: none;
-        font-weight: 500;
-
-        line-height: 20pt;
-        letter-spacing: 0.1pt;
-
-        border: none;
-        border-radius: 2em;
-
-        width: max-content;
-
-        color: var(--color-primary);
-        background: none;
-      }
-
-      .button.full-width {
-        width: 100%;
-      }
-
-      .button.text {
-        padding: 12px;
-      }
-
-      .tonal {
-        background-color: var(--color-secondary-container);
-        color: var(--color-on-secondary-container);
-      }
-
-      .filled {
-        background-color: var(--color-primary);
-        color: var(--color-on-primary);
-      }
-
-      .button > .icon {
-        font-size: 18px;
-      }
-
       .icon-button {
         display: grid;
         place-items: center;
@@ -154,13 +109,18 @@
         color: var(--color-on-surface-variant);
       }
 
-      .referal-link {
-        background-color: var(--color-primary);
-        color: var(--color-on-primary);
-      }
-
       .hidden {
         display: none;
+      }
+
+      footer {
+        height: auto;
+        align-self: flex-end;
+        margin-top: 2rem;
+
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
       }
     </style>
     <script>
@@ -608,6 +568,10 @@
 
 
     <main>
+      <p>
+        Der Tabletoptroll präsentiert: Den War-o-Mat! 
+        Beantworte die Fragen und finde heraus, welche Warhammer Age of Sigmar Fraktion am besten zu deiner Spielweise passt. 
+      </p>
       <form id="war-o-mat">
         <nav style="display: flex; justify-content: space-between">
           <ol id="jumpnav">
@@ -647,14 +611,16 @@
           style="justify-self: center;">
           Zeig mir meine Fraktion jetzt!
         </button>
-        <output class="hidden" id="result">
+        <div class="hidden" id="result">
           <h2>Für dich empfohlen</h2>
           <ol id="result-list"></ol>
-        </output>
+        </div>
       </form>
     </main>
     <footer>
-
+      <a class="button text link" href="https://www.instagram.com/tabletoptroll/">Instagram</a>
+      <a class="button text link" href="https://www.youtube.com/@tabletoptroll">YouTube</a>
+      <a class="button text link" href="https://taschengelddieb.de/?affiliate=ttt">Taschengelddieb</a>
       <input
         style="display: none; width: 100%"
         type="range"

@@ -2,13 +2,14 @@ body {
     background-color: var(--color-surface);
     color: var(--color-on-surface);
 
+    min-height: 100dvh;
     max-width: 100%;
     overflow-x: hidden;
 
     display: grid;
     grid-template-columns: [edge-start] 1fr [content-start] min(calc(100% - 2*8px), 800px) [content-end] 1fr [edge-end];
     grid-auto-rows: auto;
-    grid-template-rows: auto auto 1fr; /* Can I make this, so it isn't depended on the content beeing in the third row? */
+    grid-template-rows: auto auto 1fr;
     gap: 8px;
 }
 
