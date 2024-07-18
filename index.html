@@ -585,48 +585,7 @@
             Beantworte die Fragen und finde heraus, welche Warhammer Age of Sigmar Fraktion am besten zu deiner Spielweise passt. 
           </p>
         </div>
-        <form id="war-o-mat">
-          <nav style="display: flex; justify-content: space-between">
-            <ol id="jumpnav">
-              {% for attribute in site.data.csv.attributes %}
-                <li
-                  {% if forloop.first %}
-                  class="active"
-                  {% endif %}>
-                  <a aria-label="Frage {{ forloop.index }}" onclick="gotoQuestionNo({{ forloop.index0 }})">
-                    {{ forloop.index }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ol>
-            <button
-              class="icon-button"
-              type="reset"
-              aria-label="Zurücksetzen">
-              ↺
-            </button>
-          </nav>
-          <ol id="question-list" class="stacked-list">
-            {% for attribute in site.data.csv.attributes %}
-              <li
-                id="question-{{ forloop.index }}"
-                {% if forloop.first %}
-                class="active"
-                {% endif %}>
-                {% include question.html question=attribute %}
-              </li>
-            {% endfor %}
-          </ol>
-          <button
-            id="show-results-button"
-            class="button text hidden"
-            onclick="event.preventDefault(); revealResult();"
-            style="justify-self: center;">
-            Zeig mir meine Fraktion jetzt!
-          </button>
-        </form>
       </div>
-
       
       <div id="right">
         <div class="hidden" id="result">
@@ -640,32 +599,83 @@
 
     <main>
 
-
+      <form id="war-o-mat">
+        <div class="wrap">
+          
+        </div>
+        <nav style="display: flex; justify-content: space-between">
+          <ol id="jumpnav">
+            {% for attribute in site.data.csv.attributes %}
+              <li
+                {% if forloop.first %}
+                class="active"
+                {% endif %}>
+                <a aria-label="Frage {{ forloop.index }}" onclick="gotoQuestionNo({{ forloop.index0 }})">
+                  {{ forloop.index }}
+                </a>
+              </li>
+            {% endfor %}
+          </ol>
+          <button
+            class="icon-button"
+            type="reset"
+            aria-label="Zurücksetzen">
+            ↺
+          </button>
+        </nav>
+        <ol id="question-list" class="stacked-list">
+          {% for attribute in site.data.csv.attributes %}
+            <li
+              id="question-{{ forloop.index }}"
+              {% if forloop.first %}
+              class="active"
+              {% endif %}>
+              {% include question.html question=attribute %}
+            </li>
+          {% endfor %}
+        </ol>
+        <button
+          id="show-results-button"
+          class="button text hidden"
+          onclick="event.preventDefault(); revealResult();"
+          style="justify-self: center;">
+          Zeig mir meine Fraktion jetzt!
+        </button>
+      </form>
     </main>
+    
+  {% comment %}
+  Hier werden die Templates für die Fraktionen generiert.
+{% endcomment %}
+{% for faction in site.data.csv.factions %}
+  <template id="{{faction.id}}">
+    <article>
+      <h3>{{ faction.full_name }}</h3>
+      <p style="margin-block-end: 1em;">{{ faction.description }}</p>
+      <a class="button filled" href="{{faction.affiliate_link}}">Hier geht's zum Set!</a>
+    </article>
+  </template>
+{% endfor %}
     <footer>
-      <a class="button text link" href="https://www.instagram.com/tabletoptroll/">Instagram</a>
-      <a class="button text link" href="https://www.youtube.com/@tabletoptroll">YouTube</a>
-      <a class="button text link" href="https://taschengelddieb.de/?affiliate=ttt">Taschengelddieb</a>
-      <input
-        style="display: none; width: 100%"
-        type="range"
-        value="46"
-        min="0"
-        max="360"
-        oninput="document.querySelector(':root').style.setProperty('--primary-hue', event.target.value)" />
+      <div class="wrap">
+        <div class="footer-nav">
+          <a class="link" href="https://www.instagram.com/tabletoptroll/">
+            <img src="assets/images/logo-white.png" alt="Winterrabe Logo">
+          </a>
+          <a class="link" href="https://taschengelddieb.de/?affiliate=ttt">
+            <img src="assets/images/shoplogo.png" alt="Taschengelddieb Logo">
+          </a>
+
+          <a class="button text link" href="impressum.html">Impressum</a>
+        </div>
+        <input
+          style="display: none; width: 100%"
+          type="range"
+          value="46"
+          min="0"
+          max="360"
+          oninput="document.querySelector(':root').style.setProperty('--primary-hue', event.target.value)" />
+      </div>
     </footer>
   </body>
-
-  {% comment %}
-    Hier werden die Templates für die Fraktionen generiert.
-  {% endcomment %}
-  {% for faction in site.data.csv.factions %}
-    <template id="{{faction.id}}">
-      <article>
-        <h3>{{ faction.full_name }}</h3>
-        <p style="margin-block-end: 1em;">{{ faction.description }}</p>
-        <a class="button filled" href="{{faction.affiliate_link}}">Hier geht's zum Set!</a>
-      </article>
-    </template>
-  {% endfor %}
 </html>
