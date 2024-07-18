@@ -1,12 +1,9 @@
-exclude:
-  - tabletop-troll.json
-
 tsv_reader:
   converters:
     - integer
 
 exclude:
-  - tabletop-troll.json
+  - README.md
   - .sass-cache/
   - .jekyll-cache/
   - gemfiles/
