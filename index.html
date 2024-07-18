@@ -1,12 +1,10 @@
----
-
----
-
 <!DOCTYPE html>
 <html lang="de">
   <head>
     <title>War-o-Mat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="assets/css/fonts/fontawsome/css/all.min.css" rel="stylesheet" />
 
     <style>
       @import url('assets/css/reset.css') layer(reset);
@@ -564,58 +562,85 @@
   </head>
 
   <body>
-    <h1>War-o-Mat</h1>
+    <div id="header">
+      <div class="wrap">
+        <img src="assets/images/logo.png" alt="Tabletoptroll Logo">
+        <div class="header-nav">
+          <a href="https://www.instagram.com/tabletoptroll/" target="_blank" class="social">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.youtube.com/@tabletoptroll" target="_blank" class="social">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
 
-
-    <main>
-      <p>
-        Der Tabletoptroll präsentiert: Den War-o-Mat! 
-        Beantworte die Fragen und finde heraus, welche Warhammer Age of Sigmar Fraktion am besten zu deiner Spielweise passt. 
-      </p>
-      <form id="war-o-mat">
-        <nav style="display: flex; justify-content: space-between">
-          <ol id="jumpnav">
+    <div id="content">
+      <div id="left">
+        <div class="intro">
+          <h1>War-o-Mat</h1>
+          <p>
+            Der Tabletoptroll präsentiert: Den War-o-Mat! 
+            Beantworte die Fragen und finde heraus, welche Warhammer Age of Sigmar Fraktion am besten zu deiner Spielweise passt. 
+          </p>
+        </div>
+        <form id="war-o-mat">
+          <nav style="display: flex; justify-content: space-between">
+            <ol id="jumpnav">
+              {% for attribute in site.data.csv.attributes %}
+                <li
+                  {% if forloop.first %}
+                  class="active"
+                  {% endif %}>
+                  <a aria-label="Frage {{ forloop.index }}" onclick="gotoQuestionNo({{ forloop.index0 }})">
+                    {{ forloop.index }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ol>
+            <button
+              class="icon-button"
+              type="reset"
+              aria-label="Zurücksetzen">
+              ↺
+            </button>
+          </nav>
+          <ol id="question-list" class="stacked-list">
             {% for attribute in site.data.csv.attributes %}
               <li
+                id="question-{{ forloop.index }}"
                 {% if forloop.first %}
                 class="active"
                 {% endif %}>
-                <a aria-label="Frage {{ forloop.index }}" onclick="gotoQuestionNo({{ forloop.index0 }})">
-                  {{ forloop.index }}
-                </a>
+                {% include question.html question=attribute %}
               </li>
             {% endfor %}
           </ol>
           <button
-            class="icon-button"
-            type="reset"
-            aria-label="Zurücksetzen">
-            ↺
+            id="show-results-button"
+            class="button text hidden"
+            onclick="event.preventDefault(); revealResult();"
+            style="justify-self: center;">
+            Zeig mir meine Fraktion jetzt!
           </button>
-        </nav>
-        <ol id="question-list" class="stacked-list">
-          {% for attribute in site.data.csv.attributes %}
-            <li
-              id="question-{{ forloop.index }}"
-              {% if forloop.first %}
-              class="active"
-              {% endif %}>
-              {% include question.html question=attribute %}
-            </li>
-          {% endfor %}
-        </ol>
-        <button
-          id="show-results-button"
-          class="button text hidden"
-          onclick="event.preventDefault(); revealResult();"
-          style="justify-self: center;">
-          Zeig mir meine Fraktion jetzt!
-        </button>
+        </form>
+      </div>
+
+      
+      <div id="right">
         <div class="hidden" id="result">
           <h2>Für dich empfohlen</h2>
           <ol id="result-list"></ol>
         </div>
-      </form>
+      </div>
+
+    </div>
+
+
+    <main>
+
+
     </main>
     <footer>
       <a class="button text link" href="https://www.instagram.com/tabletoptroll/">Instagram</a>
