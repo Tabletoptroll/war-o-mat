@@ -8,13 +8,17 @@
     </legend>
   </header>
   <div class="chooser">
-    <div class="chooserwrap">
+    <div class="chooserwrap desktoplabel">
       <div class="choice1-label choice-label">
         {{ include.question.option1 }}
       </div>
       <div class="choice2-label choice-label">
         {{ include.question.option2 }}
       </div>
+    </div>
+
+    <div class="choice1-label choice-label mobillabel">
+      {{ include.question.option1 }}
     </div>
 
     <div class="options">
@@ -53,6 +57,10 @@
           value="+2" />
           Ja
       </label>
+    </div>
+
+    <div class="choice2-label choice-label mobillabel">
+      {{ include.question.option2 }}
     </div>
   </div>
   <label class="double">

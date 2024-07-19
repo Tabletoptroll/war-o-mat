@@ -353,6 +353,34 @@ form .options .option:hover, form .options .option:has(> input:checked){
     border-radius: 20px;
 }
 
+.mobillabel{
+    display: none;
+}
+
+@media only screen and (max-width: 1100px) {
+    #content{
+        display: initial;
+    }
+    #content #left {
+        max-width: 100%;
+        padding: 20px;
+    }
+    #content #right {
+        max-width: 100%;
+        padding: 20px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .mobillabel{
+        display: block;
+    }
+
+    .desktoplabel{
+        display: none;
+    }
+}
+
 /**Footer**/
 
 footer{
