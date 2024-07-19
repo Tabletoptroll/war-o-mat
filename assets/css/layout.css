@@ -10,7 +10,7 @@ body{
 
 body::after{
     content: '';
-    background-image: url(../images/rabe\ und\ trollv2.png);
+    background-image: url(../images/rabe\ und\ trollv2.webp);
     position: absolute;
     bottom: 0;
     right: 0;
