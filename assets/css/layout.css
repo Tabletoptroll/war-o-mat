@@ -436,6 +436,15 @@ form .options .option:hover, form .options .option:has(> input:checked){
         margin: 0px;
         margin-left: 20px;
     }
+
+    .formbtn{
+        flex-direction: column;
+    }
+    .formbtn button{
+        margin-bottom: 20px;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 /**Footer**/
