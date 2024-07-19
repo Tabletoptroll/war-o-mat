@@ -237,7 +237,13 @@ form .question legend{
     margin-bottom: 20px;
 }
 
-form .chooser::after{
+form .chooser .chooserwrap{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+form .chooserwrap::after{
     content: '';
     height: 1px;
     background: #dcccab;
@@ -259,6 +265,11 @@ form .chooser .choice-label{
     position: relative;
     z-index: 1;
     margin-bottom: 20px;
+}
+
+form .options{
+    display: flex;
+    justify-content: space-between;
 }
 
 form .options .option{
