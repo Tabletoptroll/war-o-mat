@@ -143,6 +143,10 @@ body{
     background: #85a144;
 }
 
+form header{
+    padding: 20px;
+}
+
 .formbtn{
     display: flex;
     justify-content: space-between;
@@ -270,6 +274,7 @@ form .question legend{
 
 form .chooser{
     margin-bottom: 40px;
+    padding: 0px 20px;
 }
 
 form .chooser .chooserwrap{
@@ -314,6 +319,9 @@ form .double input{
 form .double{
     font-size: 16px;
     color: #dcccab;
+    padding: 0px 20px;
+    margin-bottom: 40px;
+    display: block;
 }
 
 form .options{

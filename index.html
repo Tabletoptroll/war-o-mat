@@ -35,25 +35,6 @@ See: https://jekyllrb.com/docs/front-matter/
         scrollbar-color: var(--color-primary) transparent;
       }
 
-      h1 {
-        margin-block-start: 0.5rem;
-      }
-
-
-      label:has(input[type="checkbox"]) {
-        padding: var(--spacing);
-        display: flex;
-        align-items: center;
-        gap: calc(var(--spacing) / 2);
-      }
-
-      input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-        vertical-align: text-top;
-        border-radius: 2px;
-      }
-
       main {
         display: grid;
         grid-template-columns: subgrid;
@@ -613,7 +594,7 @@ See: https://jekyllrb.com/docs/front-matter/
                     class="active"
                     {% endif %}>
                     <a aria-label="Frage {{ forloop.index }}" onclick="gotoQuestionNo({{ forloop.index0 }})">
-                      {{ forloop.index }}
+                      <i class="fa-solid fa-check"></i>
                     </a>
                   </li>
                 {% endfor %}
