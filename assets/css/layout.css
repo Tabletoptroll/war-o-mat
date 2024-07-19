@@ -143,12 +143,12 @@ body{
     font-size: 16px;
 }
 
-#jumpnav li.active a  {
+#jumpnav li.done a  {
     background: #85a144;
     color: #48413B;
 }
 
-#jumpnav li:hover a{
+#jumpnav li.active a, #jumpnav li:hover a{
     background: #85a144;
     color: #85a144;
 }
@@ -460,4 +460,14 @@ footer .text.link{
 
 footer .text.link:hover{
     color: #86a149!important;
+}
+
+@media only screen and (max-width: 600px) {
+    footer .footer-nav{
+        display: flex;
+        flex-direction: column;
+    }
+    footer .footer-nav .link{
+        margin-bottom: 20px;
+    }
 }
