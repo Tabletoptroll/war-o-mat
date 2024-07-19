@@ -106,6 +106,9 @@ body{
     font-size: 40px;
     font-weight: bold;
 }
+.intro p{
+    margin-bottom: 50px;
+}
 
 #war-o-mat .wrap{
     border: 5px solid #85a144;
@@ -141,6 +144,24 @@ body{
 .formbtn{
     display: flex;
     justify-content: space-between;
+}
+
+.formbtn .icon-button{
+    border: 4px solid #2a2622;
+    background: #48413b;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #dcccab;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 30px;
+}
+
+.formbtn .icon-button:hover{
+    color: #85a144;
 }
 
 .formbtn #show-results-button{
