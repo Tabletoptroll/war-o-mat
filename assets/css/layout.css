@@ -217,6 +217,44 @@ body{
     border: 5px solid #6B8236;
 }
 
+form .question h2{
+    font-size: 24px;
+    font-weight: bold;
+    color: #dcccab;
+    margin-bottom: 20px;
+}
+
+form .question legend{
+    font-size: 16px;
+    color: #dcccab;
+}
+
+form .options .option{
+    font-size: 16px;
+    font-weight: bold;
+    color: #dcccab;
+    background: #48413b;
+    padding: 10px;
+    border: 4px solid #85a144;
+    display: flex;
+    min-width: initial;
+    min-height: initial;
+    border-radius: 20px;
+}
+
+form .options .option:hover, form .options .option:has(> input:checked){
+    font-size: 16px;
+    font-weight: bold;
+    color: #dcccab;
+    background: #85a144;
+    padding: 10px;
+    border: 4px solid #6B8236;
+    display: flex;
+    min-width: initial;
+    min-height: initial;
+    border-radius: 20px;
+}
+
 /**Footer**/
 
 footer{
