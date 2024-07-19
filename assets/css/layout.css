@@ -240,6 +240,14 @@ body{
     color: #2a2622;
 }
 
+form #question-list li{
+    display: none;
+}
+
+form #question-list li.active{
+    display: block;
+}
+
 form .question{
     border: none;
     padding: 0px;
