@@ -6,47 +6,50 @@ body{
 
     background: #DCCCAB  url(../images/grunge.png);
     position: relative;
+
+    --grid-gutter: minmax(8px, 1fr);
+
+    grid-template-columns: [full-start] var(--grid-gutter) [content-start] minmax(auto, 1400px) [content-end] var(--grid-gutter) [full-end];
+    font-family: 'Open Sans', sans-serif;
 }
 
 body::after{
     content: '';
     background-image: url(../images/rabe\ und\ trollv2.webp);
+    background-position: right top;
     position: absolute;
     bottom: 0;
     right: 0;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: right center;
     mix-blend-mode: hard-light;
     filter: drop-shadow(0px 20px 10px black);
     z-index: -1;
     opacity: 0.3;
 }
 
-
-
-#content{
-    max-width: 1400px;
-    margin: 50px auto;
-    display: flex;
-    justify-content: space-between;
-}
-#content *{
-    font-family: 'Open Sans';
+#content {
+    grid-column: content;
+    position: relative;
+    width: 100%;
 }
 
 /**Header**/
 
 #header{
+    grid-column: full;
+
     background: #BBA888;
     border-radius: 0px 0px 30px 30px;
     padding: 20px;
     filter: drop-shadow(0px 0px 10px #29000077);
+    margin-block-end: 40px;
 }
 #header .wrap{
     display: flex;
+    grid-column: content;
     justify-content: space-between;
     max-width: 1400px;
     margin: auto;
@@ -112,12 +115,6 @@ body::after{
 }
 
 /**Content LEFT**/
-
-#content #left{
-    max-width: 50%;
-    padding: 20px;
-}
-
 .intro *{
  color: #2A2622;
 }
@@ -236,10 +233,6 @@ form header{
 }
 
 /**Content RIGHT**/
-#content #right{
-    max-width: 50%;
-    padding: 20px;
-}
 
 #result h2{
     margin-bottom: 40px;
@@ -407,20 +400,6 @@ form .options .option:hover, form .options .option:has(> input:checked){
 
 .mobillabel{
     display: none;
-}
-
-@media only screen and (max-width: 1100px) {
-    #content{
-        display: initial;
-    }
-    #content #left {
-        max-width: 100%;
-        padding: 20px;
-    }
-    #content #right {
-        max-width: 100%;
-        padding: 20px;
-    }
 }
 
 @media only screen and (max-width: 600px) {
