@@ -141,6 +141,7 @@ body{
 
 #jumpnav li.active a, #jumpnav li:hover a  {
     background: #85a144;
+    color: #48413B;
 }
 
 form header{
@@ -150,6 +151,7 @@ form header{
 .formbtn{
     display: flex;
     justify-content: space-between;
+    margin-top: 20px;
 }
 
 .formbtn .icon-button{
@@ -180,6 +182,10 @@ form header{
     font-size: 16px;
     font-weight: bold;
     color: #dcccab;
+    border-radius: 30px;
+}
+.formbtn #show-results-button i{
+    margin-left: 10px;
 }
 
 .formbtn #show-results-button:hover{
@@ -343,6 +349,8 @@ form .options .option{
     border-radius: 20px;
     width: 100%;
     margin: 10px;
+    justify-content: center;
+    align-items: center;
 }
 form .options .option input{
     display: none;
@@ -385,7 +393,16 @@ form .options .option:hover, form .options .option:has(> input:checked){
     }
 
     .desktoplabel{
-        display: none;
+        display: none!important;
+    }
+
+    form .options{
+        flex-direction: column;
+        width: fit-content;
+        border-left: 1px solid #dcccab;
+        padding-left: 10px;
+        margin: 0px;
+        margin-left: 20px;
     }
 }
 
