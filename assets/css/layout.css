@@ -107,6 +107,37 @@ body{
     font-weight: bold;
 }
 
+#war-o-mat{
+    border: 5px solid #85a144;
+    border-radius: 20px;
+    background: #2a2622;
+    padding: 20px;
+}
+
+#war-o-mat #jumpnav{
+    width: 100%;
+    background: #48413b;
+    padding: 10px;
+}
+
+#jumpnav li a {
+    border-radius: 100%;
+    border: none!important;
+    background: #dcccab;
+    color: #dcccab;
+    height: 23px;
+    width: 23px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    font-size: 16px;
+}
+
+#jumpnav li.active a {
+    background: #85a144;
+}
+
 /**Content RIGHT**/
 #content #right{
     max-width: 50%;
