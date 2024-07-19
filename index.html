@@ -22,6 +22,7 @@ See: https://jekyllrb.com/docs/front-matter/
       @import url('assets/css/tokens/motion.css') layer(tokens);
       @import url('assets/css/tokens/colors.css') layer(tokens);
       @import url('assets/css/tokens/typography.css') layer(tokens);
+      @import url('assets/css/footer.css') layer(layout);
 
       @import url('assets/css/components/stacked-list.css') layer(components);
       @import url('assets/css/components/jumpnav.css') layer(components);
@@ -83,15 +84,7 @@ See: https://jekyllrb.com/docs/front-matter/
         display: none;
       }
 
-      footer {
-        height: auto;
-        align-self: flex-end;
-        margin-top: 2rem;
 
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: center;
-      }
     </style>
     <script>
             const ATTRIBUTE_FACTION_VALUE = {
@@ -619,15 +612,27 @@ See: https://jekyllrb.com/docs/front-matter/
   {% comment %}
   Hier werden die Templates für die Fraktionen generiert.
 {% endcomment %}
-{% for faction in site.data.csv.factions %}
-  <template id="{{faction.id}}">
-    <article>
-      <h3>{{ faction.full_name }}</h3>
-      <p style="margin-block-end: 1em;">{{ faction.description }}</p>
-      <a class="button filled" href="{{faction.affiliate_link}}" target="_blank">Hier geht's zum Set!</a>
-    </article>
-  </template>
-{% endfor %}
+
+    <footer>
+      <a class="link" href="https://www.winterrabe.net/">
+        <img src="assets/images/logo-white.png" alt="Winterrabe Logo" style=" margin-bottom: 22px;" width="400px">
+      </a>
+      <a class="link" href="https://taschengelddieb.de/?affiliate=ttt">
+        <img src="assets/images/shoplogo.png" alt="Taschengelddieb Logo" style="margin-bottom: 16px;" width="400px">
+      </a>
+
+      <a class="button text link" href="impressum.html">Impressum</a>
+    </footer>
+
+    {% for faction in site.data.csv.factions %}
+      <template id="{{faction.id}}">
+        <article>
+          <h3>{{ faction.full_name }}</h3>
+          <p style="margin-block-end: 1em;">{{ faction.description }}</p>
+          <a class="button filled" href="{{faction.affiliate_link}}" target="_blank">Hier geht's zum Set!</a>
+        </article>
+      </template>
+    {% endfor %}
     <footer>
       <div class="wrap">
         <div class="footer-nav">

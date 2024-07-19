@@ -1,0 +1,36 @@
+/**Footer**/
+
+footer {
+    grid-column: full;
+    background: #48413B;
+    padding: 1rem;
+
+    height: auto;
+    align-self: flex-end;
+    margin-top: 2rem;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem 1rem;
+  }
+
+footer img{
+    max-width: 400px;
+    height: auto;
+    width: 100%;
+    object-fit: contain;
+}
+
+footer .text.link{
+    font-size: 20px;
+    padding-block: 10px;
+    text-decoration: none;
+    color: #dcccab;
+    text-transform: uppercase;
+}
+
+footer .text.link:hover{
+    color: #86a149;
+}
