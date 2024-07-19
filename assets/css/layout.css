@@ -204,17 +204,19 @@ body{
     margin-left: auto;
     padding: 10px 20px;
     height: fit-content;
-    color: #85a144;
-    background: #2a2622;
-    border: 5px solid #2a2622;
+    color: #dcccab;
+    background: #85a144;
+    border: 5px solid #617531;
     font-size: 16px;
     font-weight: bold;
+    text-decoration: none;
+    display: block;
+    width: fit-content;
+    border-radius: 30px;
 }
 
 #result-list article a:hover{
     color: #2a2622;
-    background: #85a144;
-    border: 5px solid #6B8236;
 }
 
 form .question h2{
