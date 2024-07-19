@@ -592,6 +592,49 @@ See: https://jekyllrb.com/docs/front-matter/
             Beantworte die Fragen und finde heraus, welche Warhammer Age of Sigmar Fraktion am besten zu deiner Spielweise passt. 
           </p>
         </div>
+        <form id="war-o-mat">
+          <div class="wrap">
+            
+          </div>
+          <nav style="display: flex; justify-content: space-between">
+            <ol id="jumpnav">
+              {% for attribute in site.data.csv.attributes %}
+                <li
+                  {% if forloop.first %}
+                  class="active"
+                  {% endif %}>
+                  <a aria-label="Frage {{ forloop.index }}" onclick="gotoQuestionNo({{ forloop.index0 }})">
+                    {{ forloop.index }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ol>
+            <button
+              class="icon-button"
+              type="reset"
+              aria-label="Zurücksetzen">
+              ↺
+            </button>
+          </nav>
+          <ol id="question-list" class="stacked-list">
+            {% for attribute in site.data.csv.attributes %}
+              <li
+                id="question-{{ forloop.index }}"
+                {% if forloop.first %}
+                class="active"
+                {% endif %}>
+                {% include question.html question=attribute %}
+              </li>
+            {% endfor %}
+          </ol>
+          <button
+            id="show-results-button"
+            class="button text hidden"
+            onclick="event.preventDefault(); revealResult();"
+            style="justify-self: center;">
+            Zeig mir meine Fraktion jetzt!
+          </button>
+        </form>
       </div>
       
       <div id="right">
@@ -603,53 +646,6 @@ See: https://jekyllrb.com/docs/front-matter/
 
     </div>
 
-
-    <main>
-
-      <form id="war-o-mat">
-        <div class="wrap">
-          
-        </div>
-        <nav style="display: flex; justify-content: space-between">
-          <ol id="jumpnav">
-            {% for attribute in site.data.csv.attributes %}
-              <li
-                {% if forloop.first %}
-                class="active"
-                {% endif %}>
-                <a aria-label="Frage {{ forloop.index }}" onclick="gotoQuestionNo({{ forloop.index0 }})">
-                  {{ forloop.index }}
-                </a>
-              </li>
-            {% endfor %}
-          </ol>
-          <button
-            class="icon-button"
-            type="reset"
-            aria-label="Zurücksetzen">
-            ↺
-          </button>
-        </nav>
-        <ol id="question-list" class="stacked-list">
-          {% for attribute in site.data.csv.attributes %}
-            <li
-              id="question-{{ forloop.index }}"
-              {% if forloop.first %}
-              class="active"
-              {% endif %}>
-              {% include question.html question=attribute %}
-            </li>
-          {% endfor %}
-        </ol>
-        <button
-          id="show-results-button"
-          class="button text hidden"
-          onclick="event.preventDefault(); revealResult();"
-          style="justify-self: center;">
-          Zeig mir meine Fraktion jetzt!
-        </button>
-      </form>
-    </main>
     
   {% comment %}
   Hier werden die Templates für die Fraktionen generiert.
