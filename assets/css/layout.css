@@ -114,13 +114,15 @@ body{
     border: 5px solid #85a144;
     border-radius: 20px;
     background: #2a2622;
-    padding: 20px;
+    overflow: hidden;
 }
 
 #war-o-mat #jumpnav{
     width: 100%;
     background: #48413b;
     padding: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 #jumpnav li a {
@@ -137,7 +139,7 @@ body{
     font-size: 16px;
 }
 
-#jumpnav li.active a {
+#jumpnav li.active a, #jumpnav li:hover a  {
     background: #85a144;
 }
 
