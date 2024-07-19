@@ -594,46 +594,47 @@ See: https://jekyllrb.com/docs/front-matter/
         </div>
         <form id="war-o-mat">
           <div class="wrap">
-            
-          </div>
-          <nav style="display: flex; justify-content: space-between">
-            <ol id="jumpnav">
+            <ol id="question-list" class="stacked-list">
               {% for attribute in site.data.csv.attributes %}
                 <li
+                  id="question-{{ forloop.index }}"
                   {% if forloop.first %}
                   class="active"
                   {% endif %}>
-                  <a aria-label="Frage {{ forloop.index }}" onclick="gotoQuestionNo({{ forloop.index0 }})">
-                    {{ forloop.index }}
-                  </a>
+                  {% include question.html question=attribute %}
                 </li>
               {% endfor %}
             </ol>
+            <nav style="display: flex; justify-content: space-between">
+              <ol id="jumpnav">
+                {% for attribute in site.data.csv.attributes %}
+                  <li
+                    {% if forloop.first %}
+                    class="active"
+                    {% endif %}>
+                    <a aria-label="Frage {{ forloop.index }}" onclick="gotoQuestionNo({{ forloop.index0 }})">
+                      {{ forloop.index }}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ol>
+            </nav>
+          </div>
+          <div class="formbtn">
             <button
-              class="icon-button"
-              type="reset"
-              aria-label="Zurücksetzen">
-              ↺
-            </button>
-          </nav>
-          <ol id="question-list" class="stacked-list">
-            {% for attribute in site.data.csv.attributes %}
-              <li
-                id="question-{{ forloop.index }}"
-                {% if forloop.first %}
-                class="active"
-                {% endif %}>
-                {% include question.html question=attribute %}
-              </li>
-            {% endfor %}
-          </ol>
-          <button
             id="show-results-button"
             class="button text hidden"
             onclick="event.preventDefault(); revealResult();"
             style="justify-self: center;">
             Zeig mir meine Fraktion jetzt!
           </button>
+            <button
+            class="icon-button"
+            type="reset"
+            aria-label="Zurücksetzen">
+            ↺
+          </button>
+          </div>
         </form>
       </div>
       
