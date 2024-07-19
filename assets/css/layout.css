@@ -1,6 +1,24 @@
 
 body{
     background: #DCCCAB  url(../images/grunge.png);
+    position: relative;
+}
+
+body::after{
+    content: '';
+    background-image: url(../images/rabe\ und\ trollv2.png);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right center;
+    mix-blend-mode: hard-light;
+    filter: drop-shadow(0px 20px 10px black);
+    z-index: -1;
+    opacity: 0.3;
 }
 
 
@@ -32,7 +50,7 @@ body{
 }
 
 #header img{
-    max-width: 800px;
+    max-width: 600px;
     height: auto;
     position: absolute;
     top: 15%;
@@ -175,6 +193,10 @@ form header{
     width: fit-content;
     height: fit-content;
     border-radius: 30px;
+}
+
+.formbtn .icon-button i{
+    margin-right: 10px;
 }
 
 .formbtn .icon-button:hover{
@@ -442,6 +464,11 @@ footer .footer-nav{
     justify-content: space-between;
     width: 100%;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+footer .footer-nav .link{
+    margin-bottom: 20px;
 }
 
 footer img{
@@ -462,7 +489,7 @@ footer .text.link:hover{
     color: #86a149!important;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1200px) {
     footer .footer-nav{
         display: flex;
         flex-direction: column;
