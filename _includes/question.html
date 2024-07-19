@@ -8,8 +8,13 @@
     </legend>
   </header>
   <div class="chooser">
-    <div class="choice1-label choice-label">
+    <div class="wrap">
+      <div class="choice1-label choice-label">
         {{ include.question.option1 }}
+      </div>
+      <div class="choice2-label choice-label">
+        {{ include.question.option2 }}
+      </div>
     </div>
 
     <div class="options">
@@ -48,9 +53,6 @@
           value="+2" />
           Bevorzuge ich ganz klar
       </label>
-    </div>
-    <div class="choice2-label choice-label">
-        {{ include.question.option2 }}
     </div>
   </div>
   <label class="double">
