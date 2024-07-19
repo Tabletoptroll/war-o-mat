@@ -72,7 +72,7 @@ body::after{
     background: #dbcbaa;
     border-radius: 15px;
     display: flex;
-    width: fit-content;
+    width: 48px;
     margin-left: 20px;
 }
 #header .social:hover{
