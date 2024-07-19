@@ -101,14 +101,60 @@ body{
 }
 
 .intro h1{
-    font-weight: bold;
     margin-bottom: 40px;
+    color: #2a2622;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 /**Content RIGHT**/
 #content #right{
     max-width: 50%;
     padding: 20px;
+}
+
+.result h2{
+    margin-bottom: 40px;
+    color: #2a2622;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.result-list article{
+    border: 5px solid #85a144;
+    border-radius: 30px;
+    padding: 20px;
+    background: #2a2622d9;
+}
+
+.result-list article h3{
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #dbcbaa;
+    font-weight: bold;
+}
+
+.result-list article p{
+    margin-bottom: 20px;
+    color: #dcccab;
+    font-size: 16px;
+}
+
+.result-list article a{
+    margin-left: auto;
+    padding: 10px 20px;
+    height: fit-content;
+    color: #85a144;
+    background: #2a2622;
+    border: 5px solid #2a2622;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.result-list article a:hover{
+    color: #2a2622;
+    background: #85a144;
+    border: 5px solid #6B8236;
 }
 
 /**Footer**/
