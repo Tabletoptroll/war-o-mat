@@ -258,6 +258,7 @@ form .chooser .choice-label{
     width: fit-content;
     position: relative;
     z-index: 1;
+    margin-bottom: 20px;
 }
 
 form .options .option{
