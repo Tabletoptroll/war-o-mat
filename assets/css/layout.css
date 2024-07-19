@@ -123,6 +123,11 @@ body{
     padding: 10px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+}
+
+#jumpnav li{
+    margin: 10px;
 }
 
 #jumpnav li a {
@@ -135,13 +140,17 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px;
     font-size: 16px;
 }
 
-#jumpnav li.active a, #jumpnav li:hover a  {
+#jumpnav li.active a  {
     background: #85a144;
     color: #48413B;
+}
+
+#jumpnav li:hover a{
+    background: #85a144;
+    color: #85a144;
 }
 
 form header{
@@ -327,7 +336,8 @@ form .double{
     color: #dcccab;
     padding: 0px 20px;
     margin-bottom: 40px;
-    display: block;
+    display: flex;
+    align-items: center;
 }
 
 form .options{
