@@ -266,6 +266,10 @@ form .question legend{
     margin-bottom: 20px;
 }
 
+form .chooser{
+    margin-bottom: 40px;
+}
+
 form .chooser .chooserwrap{
     display: flex;
     justify-content: space-between;
@@ -296,9 +300,24 @@ form .chooser .choice-label{
     margin-bottom: 20px;
 }
 
+form .double input{
+    width: 30px;
+    height: 30px;
+    border: 1px solid #dcccab;
+    border-radius: 0px;
+    background: #48413b;
+    margin-right: 10px;
+}
+
+form .double{
+    font-size: 16px;
+    color: #dcccab;
+}
+
 form .options{
     display: flex;
     justify-content: space-between;
+    margin: -10px;
 }
 
 form .options .option{
@@ -312,6 +331,11 @@ form .options .option{
     min-width: initial;
     min-height: initial;
     border-radius: 20px;
+    width: 100%;
+    margin: 10px;
+}
+form .options .option input{
+    display: none;
 }
 
 form .options .option:hover, form .options .option:has(> input:checked){
