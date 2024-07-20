@@ -37,7 +37,7 @@
         max-width: 75ch;
       }
 
-      main {
+      #content {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(min(100%, 600px), 1fr));
         grid-auto-rows: min-content;
@@ -117,7 +117,7 @@
         <img src="assets/images/shoplogo.png" alt="Taschengelddieb Logo" style="margin-bottom: 16px;" width="400px">
       </a>
 
-      <a class="button text link" href="impressum.html">Impressum</a>
+      <a class="button text link" href="{% link impressum.html %}">Impressum & Datenschutz</a>
     </footer>
   </body>
 </html>
