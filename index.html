@@ -429,6 +429,15 @@ See: https://jekyllrb.com/docs/front-matter/
                 syncJumpNav();
             }
 
+            function gotoPrevious() {
+                const current = getActiveQuestionNo();
+                if (current === undefined) gotoQuestionNo(0);
+
+                if (current > 0) {
+                    gotoQuestionNo(current - 1);
+                }
+            }
+
             function gotoNext() {
                 const current = getActiveQuestionNo();
                 if (current === undefined) gotoQuestionNo(0);
