@@ -5,7 +5,7 @@
     display: grid;
     grid-template-columns: subgrid;
 
-    background: #BBA888;
+    background: var(--color-header-background);
     border-radius: 0px 0px 2rem 2rem;
     padding-block: 1rem;
     filter: drop-shadow(0px 0px 10px #29000077);
@@ -40,7 +40,7 @@
 #header .social{
     color: #463f39;
     text-decoration: none;
-    background: #dbcbaa;
+    background: var(--color-surface-container-low);
     border-radius: 1rem;
     width: 48px;
     height: 48px;

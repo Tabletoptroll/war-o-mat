@@ -16,7 +16,7 @@ See: https://jekyllrb.com/docs/front-matter/
         Beantworte die Fragen und finde heraus, welche Warhammer Age of Sigmar Fraktion am besten zu deiner Spielweise passt. 
       </p>
     </div>
-    <form id="war-o-mat">
+    <form id="war-o-mat" class="dark">
       <div class="wrap">
         <ol id="question-list" class="stacked-list">
           {% for attribute in site.data.csv.attributes %}
@@ -51,20 +51,21 @@ See: https://jekyllrb.com/docs/front-matter/
         </nav>
       </div>
       <div class="formbtn">
+        
         <button
-        id="show-results-button"
-        class="button text hidden"
-        onclick="event.preventDefault(); revealResult();"
-        style="justify-self: center;">
-        Zeig mir meine Fraktion jetzt!
-        <i class="fa-solid fa-circle-arrow-right"></i>
-      </button>
+          class="button surface"
+          type="reset"
+          aria-label="Zurücksetzen">
+          <i class="fa-solid fa-arrow-rotate-left"></i>Antworten Zurücksetzen
+        </button>
         <button
-        class="icon-button"
-        type="reset"
-        aria-label="Zurücksetzen">
-        <i class="fa-solid fa-arrow-rotate-left"></i>Antworten Zurücksetzen
-      </button>
+          id="show-results-button"
+          class="button surface hidden"
+          onclick="event.preventDefault(); revealResult();"
+          style="justify-self: center;">
+          Zeig mir meine Fraktion jetzt!
+          <i class="fa-solid fa-circle-arrow-right"></i>
+        </button>
       </div>
     </form>
   </div>
@@ -527,14 +528,14 @@ See: https://jekyllrb.com/docs/front-matter/
             });
         });
 </script>
-    
+
 
 {% comment %}
   Hier werden die Templates für die Fraktionen generiert.
 {% endcomment %}
 {% for faction in site.data.csv.factions %}
 <template id="{{faction.id}}">
-  <article>
+  <article class="result-entry dark">
     <h3>{{ faction.full_name }}</h3>
     <p style="margin-block-end: 1em;">{{ faction.description }}</p>
     <a class="button filled" href="{{faction.affiliate_link}}" target="_blank">Hier geht's zum Set!</a>

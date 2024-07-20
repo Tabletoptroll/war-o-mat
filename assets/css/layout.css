@@ -4,7 +4,7 @@ body{
     grid-template-rows: auto 1fr auto;
     min-height: 100dvh;
 
-    background: #DCCCAB  url(../images/grunge.png);
+    background: var(--color-surface, #DCCCAB) url(../images/grunge.png);
     position: relative;
 
     --grid-gutter: minmax(16px, 1fr);
@@ -42,12 +42,11 @@ body::after{
 
 /**Content LEFT**/
 .intro *{
- color: #2A2622;
+ color: var(--color-1);
 }
 
 .intro h1{
     margin-bottom: 40px;
-    color: #2a2622;
     font-size: 40px;
     font-weight: bold;
 }
@@ -56,9 +55,9 @@ body::after{
 }
 
 #war-o-mat .wrap{
-    border: 5px solid #85a144;
+    border: 5px solid var(--color-tabletoptroll-green);
     border-radius: 20px;
-    background: #2a2622;
+    background: var(--color-1);
     overflow: hidden;
 }
 
@@ -73,29 +72,25 @@ form header{
 }
 
 .formbtn .icon-button{
-    border: 4px solid #2a2622;
+    border: 4px solid var(--color-1);
     background: #48413b;
     display: flex;
     align-items: center;
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
-    color: #dcccab;
+    color: var(--color-on-surface);
     width: fit-content;
     height: fit-content;
     border-radius: 30px;
 }
 
-.formbtn .icon-button i{
-    margin-right: 10px;
-}
-
 .formbtn .icon-button:hover{
-    color: #85a144;
+    color: var(--color-tabletoptroll-green);
 }
 
 .formbtn #show-results-button{
-    border: 4px solid #85a144;
+    border: 4px solid var(--color-tabletoptroll-green);
     background: #48413b;
     display: flex;
     align-items: center;
@@ -103,71 +98,20 @@ form header{
     height: fit-content;
     font-size: 16px;
     font-weight: bold;
-    color: #dcccab;
+    color: var(--color-on-surface);
     border-radius: 30px;
-}
-.formbtn #show-results-button i{
-    margin-left: 10px;
 }
 
 .formbtn #show-results-button:hover{
     border: 4px solid #6B8236;
-    background: #85a144;
+    background: var(--color-tabletoptroll-green);
     display: flex;
     align-items: center;
     padding: 10px 20px;
     height: fit-content;
     font-size: 16px;
     font-weight: bold;
-    color: #dcccab;
-}
-
-/**Content RIGHT**/
-
-#result h2{
-    margin-bottom: 40px;
-    color: #2a2622;
-    font-size: 40px;
-    font-weight: bold;
-}
-
-#result-list article{
-    border: 5px solid #85a144;
-    border-radius: 30px;
-    padding: 20px;
-    background: #2a2622d9;
-}
-
-#result-list article h3{
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #dbcbaa;
-    font-weight: bold;
-}
-
-#result-list article p{
-    margin-bottom: 20px;
-    color: #dcccab;
-    font-size: 16px;
-}
-
-#result-list article a{
-    margin-left: auto;
-    padding: 10px 20px;
-    height: fit-content;
-    color: #dcccab;
-    background: #85a144;
-    border: 5px solid #617531;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-    display: block;
-    width: fit-content;
-    border-radius: 30px;
-}
-
-#result-list article a:hover{
-    color: #2a2622;
+    color: var(--color-on-surface);
 }
 
 form #question-list li{
@@ -186,13 +130,13 @@ form .question{
 form .question h2{
     font-size: 24px;
     font-weight: bold;
-    color: #dcccab;
+    color: var(--color-on-surface);
     margin-bottom: 20px;
 }
 
 form .question legend{
     font-size: 16px;
-    color: #dcccab;
+    color: var(--color-on-surface);
     margin-bottom: 20px;
 }
 
@@ -221,10 +165,10 @@ form .chooserwrap::after{
 form .chooser .choice-label{
     font-size: 16px;
     font-weight: initial;
-    color: #dcccab;
+    color: var(--color-on-surface);
     margin: 0px -10px;
     padding: 10px;
-    background: #2a2622;
+    background: var(--color-1);
     width: fit-content;
     position: relative;
     z-index: 1;
@@ -242,7 +186,7 @@ form .double input{
 
 form .double{
     font-size: 16px;
-    color: #dcccab;
+    color: var(--color-on-surface);
     padding: 0px 20px;
     margin-bottom: 40px;
     display: flex;
@@ -258,10 +202,10 @@ form .options{
 form .options .option{
     font-size: 16px;
     font-weight: bold;
-    color: #dcccab;
+    color: var(--color-on-surface);
     background: #48413b;
     padding: 10px;
-    border: 4px solid #85a144;
+    border: 4px solid var(--color-tabletoptroll-green);
     display: flex;
     min-width: initial;
     min-height: initial;
@@ -278,8 +222,8 @@ form .options .option input{
 form .options .option:hover, form .options .option:has(> input:checked){
     font-size: 16px;
     font-weight: bold;
-    color: #dcccab;
-    background: #85a144;
+    color: var(--on-surface);
+    background: var(--color-tabletoptroll-green);
     padding: 10px;
     border: 4px solid #6B8236;
     display: flex;

@@ -13,8 +13,12 @@
     --tertiary-hue: calc(var(--primary-hue) + 130deg);
     --tertiary-ch: var(--tertiary-chroma) var(--tertiary-hue);
 
+    /*
     --neutral-chroma: calc(min(var(--primary-chroma) / 12, 0.02)); 
     --neutral-hue: var(--primary-hue);
+    */
+    --neutral-chroma: 0.048;
+    --neutral-hue: 85.17deg;
     --neutral-ch: var(--neutral-chroma) var(--neutral-hue);
 
     --neutral-variant-chroma: calc(var(--neutral-chroma) * 2.0);
@@ -40,19 +44,61 @@
     --color-tertiary-container: oklch(90% var(--tertiary-ch));
     --color-on-tertiary-container: oklch(40% var(--tertiary-ch));
 
-    --color-surface: oklch(98% var(--neutral-ch));
-    --color-surface-container-lowest: oklch(100% var(--neutral-ch));;
-    --color-surface-container-low: oklch(96% var(--neutral-ch));
-    --color-surface-container: oklch(94% var(--neutral-ch));
+    --color-surface: oklch(85% var(--neutral-ch));
+    --color-surface-container-lowest: oklch(90% var(--neutral-ch));;
+    --color-surface-container-low: oklch(83% var(--neutral-ch));
+    --color-surface-container: oklch(81% var(--neutral-ch));
 
     --color-on-surface: oklch(20% var(--neutral-ch));
     --color-on-surface-variant: oklch(40% var(--neutral-variant-ch));
 
 
     --color-outline: oklch(50% var(--neutral-variant-ch));
+
+
+    --color-1: oklch(0.27 0.01 0);
+    --color-1-transparent: #2a2622d9;
+
+    --color-surface-light: oklch(0.38 0.01 62.97);
+
+    --color-tabletoptroll-green: oklch(0.67 0.12 123.76); /* #86a149 */
+
+    --color-header-background: #bba888;
+
+    --color-jumpnav-surface: var(--color-surface-light);
 }
 
+
 /* Grundfarben werden für den Darkmode überschrieben. */
+
+.dark {
+    color-scheme: dark;
+
+    --color-primary: oklch(80% var(--primary-ch));
+    --color-on-primary: oklch(40% var(--primary-ch));
+
+    --color-primary-container: oklch(40% var(--primary-ch));
+    --color-on-primary-container: oklch(90% var(--primary-ch));
+
+    --color-secondary-container: oklch(40% var(--secondary-ch));
+    --color-on-secondary-container: oklch(90% var(--secondary-ch));
+
+    --color-tertiary-container: oklch(40% var(--tertiary-ch));
+    --color-on-tertiary-container: oklch(90% var(--tertiary-ch));
+
+    --color-surface: oklch(20% var(--neutral-ch));
+    --color-surface-container-lowest: oklch(15% var(--neutral-ch));
+    --color-surface-container-low: oklch(22% var(--neutral-ch));
+    --color-surface-container: oklch(24% var(--neutral-ch));
+    --color-surface-container-high: oklch(29% var(--neutral-ch));
+    --color-surface-container-highest: oklch(48% var(--neutral-ch));
+    --color-on-surface: oklch(85% var(--neutral-ch));
+    --color-on-surface-variant: oklch(85% var(--neutral-variant-ch));
+
+    --color-outline: oklch(60% var(--neutral-variant-ch));
+}
+
+/*
 @media (prefers-color-scheme: dark) {
     :root {
         color-scheme: dark;
@@ -79,3 +125,4 @@
         --color-outline: oklch(60% var(--neutral-variant-ch));
     }
 }
+*/

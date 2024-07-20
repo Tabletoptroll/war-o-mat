@@ -1,0 +1,32 @@
+#result h2{
+    margin-bottom: 40px;
+    color: var(--color-1);
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.result-entry {
+    border: 5px solid #85a144;
+    border-radius: 30px;
+    padding: 20px;
+    background: var(--color-1-transparent);
+    color: var(--color-on-surface); 
+}
+
+.result-entry h3{
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.result-entry a.button {
+    margin-left: auto;
+    color: var(--color-1);
+    background: #85a144;
+    border: 5px solid #617531;
+    font-weight: bolder;
+}
+
+.result-entry a:hover{
+    color: var(--color-1);
+}
