@@ -10,6 +10,8 @@
     padding-block: 1rem;
     filter: drop-shadow(0px 0px 10px #29000077);
     margin-block-end: 2rem;
+
+    position: relative;
 }
 
 #header .wrap{

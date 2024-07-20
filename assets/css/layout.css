@@ -14,9 +14,11 @@ body{
 }
 
 body::after{
+    --filter: sepia(20%) opacity(20%) drop-shadow(0px 20px 10px #000000);
+
     content: '';
     background-image: url(../images/rabe\ und\ trollv2.webp);
-    background-position: right top;
+    background-position: right top; /* top because the background "jumps" when the page gets longer.*/
     position: absolute;
     bottom: 0;
     right: 0;
@@ -25,9 +27,10 @@ body::after{
     background-size: contain;
     background-repeat: no-repeat;
     mix-blend-mode: hard-light;
-    filter: drop-shadow(0px 20px 10px black);
+    filter: var(--filter);
+    -webkit-filter: var(--filter);
+    -moz-filter: var(--filter);
     z-index: -1;
-    opacity: 0.3;
 }
 
 #content {
