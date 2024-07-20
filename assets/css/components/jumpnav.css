@@ -1,5 +1,5 @@
 #jumpnav ol {
-    padding: .5rem;
+    padding-block: .5rem;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
