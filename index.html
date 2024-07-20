@@ -40,6 +40,10 @@ See: https://jekyllrb.com/docs/front-matter/
         scrollbar-color: var(--color-primary) transparent;
       }
 
+      p {
+        max-width: 75ch;
+      }
+
       main {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(min(100%, 600px), 1fr));
@@ -393,19 +397,20 @@ See: https://jekyllrb.com/docs/front-matter/
             }
 
             function getActiveQuestionNo() {
-                const active_question = document.querySelector('#question-list > .active');
+                const active_question = document.querySelector('#question-list .active');
                 return !active_question ? 0 : [...active_question.parentNode.children].indexOf(active_question);
             }
 
             function syncJumpNav(){
                 const questionList = document.getElementById('question-list');
                 const jumpNav = document.getElementById('jumpnav');
+                const jumpNavList = jumpNav.querySelector('ol');
 
                 // Set jumpNav item to .done if question input is :checked
                 questionList.querySelectorAll('li').forEach((listItem, i) => {
                     const checked = listItem.querySelector('input:checked');
                     const active = listItem.classList.contains('active');
-                    const jumpNavItem = jumpNav.children[i];
+                    const jumpNavItem = jumpNavList.children[i];
                     if (checked) {
                         jumpNavItem.classList.add('done');
                     } else {
@@ -535,6 +540,11 @@ See: https://jekyllrb.com/docs/front-matter/
   </head>
 
   <body>
+    <svg style="display: none;">
+      <symbol id="checkmark" viewBox="0 0 24 24" stroke-width="3px" stroke="currentColor" fill="none">
+        <path d="M4 12l5 5 11-11"/>
+      </symbol>
+    </svg>
     <div id="header">
       <div class="wrap">
         <a href="index.html"><img src="assets/images/logo.png" alt="Tabletoptroll Logo"></a> 
@@ -573,19 +583,25 @@ See: https://jekyllrb.com/docs/front-matter/
                 </li>
               {% endfor %}
             </ol>
-            <nav style="display: flex; justify-content: space-between">
-              <ol id="jumpnav">
+            <nav id="jumpnav">
+              <button href="#" onclick="event.preventDefault(); gotoPrevious();">Zurück</button>
+              <ol>
                 {% for attribute in site.data.csv.attributes %}
                   <li
                     {% if forloop.first %}
                     class="active"
                     {% endif %}>
                     <a aria-label="Frage {{ forloop.index }}" onclick="gotoQuestionNo({{ forloop.index0 }})">
-                      <i class="fa-solid fa-check"></i>
+                      <div class="indicator">
+                        <svg width="100%" height="100%">
+                          <use href="#checkmark"></use>
+                        </svg>
+                      </div>
                     </a>
                   </li>
                 {% endfor %}
               </ol>
+              <button href="#" onclick="event.preventDefault(); gotoNext();">Nächste</button>
             </nav>
           </div>
           <div class="formbtn">

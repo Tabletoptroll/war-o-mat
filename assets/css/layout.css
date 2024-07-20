@@ -7,10 +7,10 @@ body{
     background: #DCCCAB  url(../images/grunge.png);
     position: relative;
 
-    --grid-gutter: minmax(8px, 1fr);
+    --grid-gutter: minmax(16px, 1fr);
 
     grid-template-columns: [full-start] var(--grid-gutter) [content-start] minmax(auto, 1400px) [content-end] var(--grid-gutter) [full-end];
-    font-family: 'Open Sans', sans-serif;
+    font-family: sans-serif;
 }
 
 body::after{
@@ -57,42 +57,6 @@ body::after{
     border-radius: 20px;
     background: #2a2622;
     overflow: hidden;
-}
-
-#war-o-mat #jumpnav{
-    width: 100%;
-    background: #48413b;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-#jumpnav li{
-    margin: 10px;
-}
-
-#jumpnav li a {
-    border-radius: 100%;
-    border: none!important;
-    background: #dcccab;
-    color: #dcccab;
-    height: 23px;
-    width: 23px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-}
-
-#jumpnav li.done a  {
-    background: #85a144;
-    color: #48413B;
-}
-
-#jumpnav li.active a, #jumpnav li:hover a{
-    background: #85a144;
-    color: #85a144;
 }
 
 form header{

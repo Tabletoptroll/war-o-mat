@@ -1,0 +1,57 @@
+#jumpnav ol {
+    padding: .5rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#jumpnav {
+    display: flex; 
+    justify-content: center; 
+    background: #48413b;
+    color: #dcccab;
+}
+
+#jumpnav button {
+    color: inherit;
+    background-color: transparent;
+    border: none;
+}
+
+#jumpnav button:hover {
+    background-color: rgba(240, 240, 240, 0.05);
+}
+
+#jumpnav li a {
+    height: 48px;
+    width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    position: relative;
+}
+
+#jumpnav .indicator {
+    color: transparent;
+    width: 50%;
+    height: 50%;
+    border: none;
+    background: #dcccab;
+    border-radius: 9999px;
+
+    font-size: 16px;
+    display: grid;
+    place-content: center;
+}
+
+
+#jumpnav li.done .indicator {
+    background: #85a144;
+    color: #48413B;
+}
+
+#jumpnav li.active .indicator, 
+#jumpnav li:hover .indicator{
+    background: #85a144;
+}
