@@ -27,6 +27,16 @@
     font-weight: bolder;
 }
 
+.result-entry span{
+    font-size: 14px;
+    margin-left: auto;
+    font-weight: initial;
+    color: #85a144;
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+
 .result-entry a:hover{
     color: var(--color-1);
 }
