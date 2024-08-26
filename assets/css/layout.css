@@ -4,7 +4,16 @@ body{
     grid-template-rows: auto 1fr auto;
     min-height: 100dvh;
 
-    background: var(--color-surface, #DCCCAB) url(../images/grunge.png);
+    background-color: var(--color-surface, #DCCCAB);
+    background-image: url("../images/grunge.png");
+    background-image: -webkit-image-set(
+        url("../images/grunge.webp"),
+        url("../images/grunge.png")
+    );
+    background-image: image-set(
+        "../images/grunge.webp" type("image/webp"),
+        "../images/grunge.png" type("image/png")
+    );
     position: relative;
 
     --grid-gutter: minmax(16px, 1fr);
