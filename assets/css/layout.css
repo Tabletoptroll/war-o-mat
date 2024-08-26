@@ -272,3 +272,8 @@ form .options .option:hover, form .options .option:has(> input:checked){
         justify-content: center;
     }
 }
+
+svg.icon {
+    height: 1em;
+    width: 1em;
+}

@@ -56,7 +56,10 @@ See: https://jekyllrb.com/docs/front-matter/
           class="button surface"
           type="reset"
           aria-label="Zurücksetzen">
-          <i class="fa-solid fa-arrow-rotate-left"></i>Antworten Zurücksetzen
+          <svg class="icon">
+            <use href="#arrow-rotate-left"></use>
+          </svg>
+          Antworten Zurücksetzen
         </button>
         <button
           id="show-results-button"
@@ -64,7 +67,9 @@ See: https://jekyllrb.com/docs/front-matter/
           onclick="event.preventDefault(); revealResult();"
           style="justify-self: center;">
           Zeig mir meine Fraktion jetzt!
-          <i class="fa-solid fa-circle-arrow-right"></i>
+          <svg class="icon">
+            <use href="#circle-arrow-right"></use>
+          </svg>
         </button>
       </div>
     </form>
