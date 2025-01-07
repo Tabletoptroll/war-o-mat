@@ -4,6 +4,7 @@ tsv_reader:
 
 exclude:
   - README.md
+  - .vscode/
   - .sass-cache/
   - .jekyll-cache/
   - gemfiles/
