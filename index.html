@@ -61,9 +61,16 @@ See: https://jekyllrb.com/docs/front-matter/
           </svg>
           Antworten Zurücksetzen
         </button>
+
+        <style>
+          main:not(:has(#result.hidden))      #show-results-button,  /* Either the result is not hidden */
+          #war-o-mat:not(:has(input:checked)) #show-results-button { /* or no input is checked in the war-o-mat. */
+            display: none;
+          }
+        </style>
         <button
           id="show-results-button"
-          class="button surface hidden"
+          class="button surface"
           onclick="event.preventDefault(); revealResult();"
           style="justify-self: center;">
           Zeig mir meine Fraktion jetzt!
@@ -388,7 +395,6 @@ See: https://jekyllrb.com/docs/front-matter/
 </script>
 <script>
         function revealResult() {
-            document.getElementById('show-results-button').remove();
             document.getElementById('result').classList.remove('hidden');
         }
 
@@ -451,13 +457,9 @@ See: https://jekyllrb.com/docs/front-matter/
             }
         }
 
-        function unlockSkipButton() {
-            document.getElementById('show-results-button').classList.remove('hidden');
-        }
 
         function complete(question) {
             gotoNext();
-            unlockSkipButton();
             syncJumpNav();
         }
 
@@ -480,7 +482,6 @@ See: https://jekyllrb.com/docs/front-matter/
             form.addEventListener('reset', (event) => {
                 setTimeout(function() {
                     gotoQuestionNo(0);
-                    document.getElementById('show-results-button').classList.add('hidden');
                     syncJumpNav();
                   }, 10);
             });
