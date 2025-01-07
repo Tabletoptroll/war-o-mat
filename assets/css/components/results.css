@@ -6,10 +6,10 @@
 }
 
 .result-entry {
-    border: 5px solid #85a144;
+    border: 5px solid var(--color-tabletoptroll-green);
     border-radius: 30px;
     padding: 20px;
-    background: var(--color-1-transparent);
+    background: var(--color-surface-light);
     color: var(--color-on-surface); 
 }
 
@@ -22,7 +22,7 @@
 .result-entry a.button {
     margin-left: auto;
     color: var(--color-1);
-    background: #85a144;
+    background: var(--color-tabletoptroll-green);
     border: 5px solid #617531;
     font-weight: bolder;
 }

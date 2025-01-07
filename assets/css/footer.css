@@ -2,7 +2,7 @@
 
 footer {
     grid-column: full;
-    background: #48413B;
+    background: var(--color-surface-light);
     padding: 1rem;
 
     height: auto;
@@ -32,5 +32,5 @@ footer .text.link{
 }
 
 footer .text.link:hover{
-    color: #86a149;
+    color: var(--color-tabletoptroll-green);
 }
