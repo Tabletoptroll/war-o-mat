@@ -70,10 +70,6 @@ body::after{
     overflow: hidden;
 }
 
-form header{
-    padding: 20px;
-}
-
 .formbtn{
     display: flex;
     justify-content: space-between;
@@ -133,7 +129,7 @@ form #question-list li.active{
 
 form .question{
     border: none;
-    padding: 0px;
+    padding: 20px;
 }
 
 form .question h2{
@@ -151,7 +147,6 @@ form .question legend{
 
 form .chooser{
     margin-bottom: 40px;
-    padding: 0px 20px;
 }
 
 form .chooser .chooserwrap{
@@ -182,7 +177,6 @@ form .chooser .choice-label{
     position: relative;
     z-index: 1;
     margin-bottom: 20px;
-}
 
 form .double input{
     width: 30px;
@@ -194,9 +188,7 @@ form .double input{
 }
 
 form .double{
-    font-size: 16px;
     color: var(--color-on-surface);
-    padding: 0px 20px;
     margin-bottom: 40px;
     display: flex;
     align-items: center;
@@ -209,7 +201,6 @@ form .options{
 }
 
 form .options .option{
-    font-size: 16px;
     font-weight: bold;
     color: var(--color-on-surface);
     background: var(--color-surface-light);
@@ -256,7 +247,6 @@ form .options .option:hover, form .options .option:has(> input:checked){
 
     form .options{
         flex-direction: column;
-        width: fit-content;
         border-left: 1px solid #dcccab;
         padding-left: 10px;
         margin: 0px;
