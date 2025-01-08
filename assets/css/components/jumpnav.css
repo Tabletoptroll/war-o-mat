@@ -30,7 +30,7 @@
     justify-content: center;
 }
 
-#jumpnav .indicator {
+.indicator {
     color: transparent;
     width: 50%;
     height: 50%;
