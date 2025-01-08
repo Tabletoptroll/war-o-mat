@@ -5,7 +5,7 @@
     color: var(--color-on-surface);
 }
 
-#jumpnav ol {
+#jumpnav [role="tablist"] {
     padding-block: .5rem;
     display: flex;
     justify-content: center;
@@ -22,36 +22,36 @@
     background-color: rgba(240, 240, 240, 0.05);
 }
 
-#jumpnav li a {
+#jumpnav a {
     height: 48px;
     width: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    position: relative;
 }
 
 #jumpnav .indicator {
     color: transparent;
     width: 50%;
     height: 50%;
-    border: none;
     background: var(--color-on-surface);
     border-radius: 9999px;
-
-    font-size: 16px;
-    display: grid;
-    place-content: center;
 }
 
+.indicator {
+    scale: 1;
+    transition: scale var(--motion-duration-medium2) var(--motion-easing-standard);
+}
 
-#jumpnav li.done .indicator {
-    background: #85a144;
+[data-done="true"] .indicator {
+    background: var(--color-tabletoptroll-green);
     color: var(--color-jumpnav-surface);
 }
 
-#jumpnav li.active .indicator, 
-#jumpnav li:hover .indicator{
-    background: #85a144;
+[aria-selected="true"] .indicator {
+    scale: 1.3;
+}
+
+:hover > .indicator{
+    background: var(--color-tabletoptroll-green);
 }

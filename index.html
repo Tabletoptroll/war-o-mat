@@ -18,40 +18,39 @@ See: https://jekyllrb.com/docs/front-matter/
     </div>
     <form id="war-o-mat" class="dark">
       <div class="wrap">
-        <ol id="question-list" class="stacked-list">
+        <style>
+            #question-list [role="tabpanel"]:not(:target) {
+              display: none;
+            }
+        </style>
+        <div id="question-list" class="stacked-list">
           {% for attribute in site.data.csv.attributes %}
-            <li
-              id="question-{{ forloop.index }}"
-              {% if forloop.first %}
-              class="active"
-              {% endif %}>
+            <div role="tabpanel" id="{{ attribute.id }}" >
               {% include question.html question=attribute %}
-            </li>
+            </div>
           {% endfor %}
-        </ol>
+        </div>
+
         <nav id="jumpnav">
           <button href="#" onclick="event.preventDefault(); gotoPrevious();">Zurück</button>
-          <ol>
+          <div role="tablist" aria-label="Springe zu Frage">
             {% for attribute in site.data.csv.attributes %}
-              <li
-                {% if forloop.first %}
-                class="active"
-                {% endif %}>
-                <a aria-label="Frage {{ forloop.index }}" onclick="gotoQuestionNo({{ forloop.index0 }})">
-                  <div class="indicator">
-                    <svg width="100%" height="100%">
-                      <use href="#checkmark"></use>
-                    </svg>
-                  </div>
-                </a>
-              </li>
+              <a title="{{ attribute.title }}" role="tab"
+                href="#{{ attribute.id }}" 
+                onclick="gotoQuestion('{{ attribute.id }}')"
+                tabindex={{ "0" if forloop.first else "-1"}}
+                aria-label="{{ attribute.title }}" 
+                aria-controls="{{ attribute.id }}">
+                <svg class="indicator" aria-hidden="true">
+                    <use href="#checkmark"></use>
+                </svg>
+              </a>
             {% endfor %}
-          </ol>
+          </div>
           <button href="#" onclick="event.preventDefault(); gotoNext();">Nächste</button>
         </nav>
       </div>
       <div class="formbtn">
-        
         <button
           class="button surface"
           type="reset"
@@ -63,8 +62,8 @@ See: https://jekyllrb.com/docs/front-matter/
         </button>
 
         <style>
-          main:not(:has(#result.hidden))      #show-results-button,  /* Either the result is not hidden */
-          #war-o-mat:not(:has(input:checked)) #show-results-button { /* or no input is checked in the war-o-mat. */
+          main:not(:has(#result.hidden))                    #show-results-button,  /* Either the result is not hidden */
+          #war-o-mat:not(:has(input[type="radio"]:checked)) #show-results-button { /* or no radio input is checked in the war-o-mat. */
             display: none;
           }
         </style>
@@ -398,71 +397,45 @@ See: https://jekyllrb.com/docs/front-matter/
             document.getElementById('result').classList.remove('hidden');
         }
 
-        function getActiveQuestionNo() {
-            const active_question = document.querySelector('#question-list .active');
-            return !active_question ? 0 : [...active_question.parentNode.children].indexOf(active_question);
+        function getCurrentQuestionElement() {
+          return document.querySelector('#question-list :target');
         }
 
-        function syncJumpNav(){
-            const questionList = document.getElementById('question-list');
-            const jumpNav = document.getElementById('jumpnav');
-            const jumpNavList = jumpNav.querySelector('ol');
-
-            // Set jumpNav item to .done if question input is :checked
-            questionList.querySelectorAll('li').forEach((listItem, i) => {
-                const checked = listItem.querySelector('input:checked');
-                const active = listItem.classList.contains('active');
-                const jumpNavItem = jumpNavList.children[i];
-                if (checked) {
-                    jumpNavItem.classList.add('done');
-                } else {
-                    jumpNavItem.classList.remove('done');
-                }
-                if (active) {
-                    jumpNavItem.classList.add('active');
-                } else {
-                    jumpNavItem.classList.remove('active');
-                }
-            });
+        function syncJumpNav(jumpNav, questionList){
+          questionList.querySelectorAll('[role="tabpanel"]').forEach((listItem) => {
+            const tab = jumpNav.querySelector(`[aria-controls="${listItem.id}"]`);
+            const active = listItem.id === location.hash.slice(1);
+            const checked = !!listItem.querySelector('input[type="radio"]:checked');
+            
+            tab.dataset.done = checked;
+            tab.checked = checked;
+            tab.ariaSelected = active;
+          });
         }
 
-        function gotoQuestionNo(questionNo) {
-            const question_list = document.getElementById('question-list');
-            const active_questions = question_list.querySelectorAll('.active');
-            active_questions.forEach((question) => question.classList.remove('active'));
-            active_question = question_list.children[questionNo]
-            active_question.classList.add('active');
+        function gotoQuestion(id) {
+          location.hash = id;
+        }
 
-            syncJumpNav();
+        function gotoFirstQuestion(questionList) {
+          const first_id = questionList.querySelector('[role="tabpanel"]').id;
+          gotoQuestion(first_id);
         }
 
         function gotoPrevious() {
-            const current = getActiveQuestionNo();
-            if (current === undefined) gotoQuestionNo(0);
+          const previous = getCurrentQuestionElement().previousElementSibling;
 
-            if (current > 0) {
-                gotoQuestionNo(current - 1);
-            }
+          if (previous)
+            gotoQuestion(previous.id);
         }
 
         function gotoNext() {
-            const current = getActiveQuestionNo();
-            if (current === undefined) gotoQuestionNo(0);
-
-            const questions = document.getElementById('question-list').children;
-            if (current < questions.length - 1) {
-                gotoQuestionNo(current + 1);
-            } else {
-                revealResult();
-            }
+          const next = getCurrentQuestionElement().nextElementSibling;
+          if (next)
+            gotoQuestion(next.id);
+          else
+            revealResult();
         }
-
-
-        function complete(question) {
-            gotoNext();
-            syncJumpNav();
-        }
-
 
         const euclideanDistance = (a, b) => Math.hypot(...Object.keys(a).map(k => b[k] - a[k]));
         const euclideanQuadraticDistance = (a, b) => Object.keys(a).reduce((acc, k) => acc + (b[k] - a[k]) ** 2, 0);
@@ -472,18 +445,24 @@ See: https://jekyllrb.com/docs/front-matter/
             const questionList = document.getElementById('question-list');
             const jumpNav = document.getElementById('jumpnav');
 
+            window.addEventListener("hashchange", (event) => syncJumpNav(jumpNav, questionList))
+
+            if (!location.hash) 
+              gotoFirstQuestion(questionList);
+            else 
+              syncJumpNav(jumpNav, questionList);
+            
+
             questionList.querySelectorAll('input[type="radio"]').forEach((radio) => {
-                radio.addEventListener('change', (event) => {
-                    complete(event.target.closest('.question'));
-                });
+              radio.addEventListener('change', (event) => gotoNext());
             });
   
 
             form.addEventListener('reset', (event) => {
                 setTimeout(function() {
-                    gotoQuestionNo(0);
-                    syncJumpNav();
-                  }, 10);
+                  gotoFirstQuestion(questionList);
+                  syncJumpNav(jumpNav, questionList);
+                }, 10);
             });
 
             form.addEventListener('input', (event) => {
