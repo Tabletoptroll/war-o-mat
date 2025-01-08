@@ -26,7 +26,7 @@
     --neutral-variant-ch: var(--neutral-variant-chroma) var(--neutral-variant-hue);
 }
 
-:root {
+:root, .light {
     /* Hier werden semantische Farben generiert. 
        Ist das nicht cool? Und wahnsinnig overengineered?
        Kontrast passt immer!
@@ -55,15 +55,13 @@
 
     --color-outline: oklch(50% var(--neutral-variant-ch));
 
-
-    --color-1: oklch(0.27 0.01 0);
-
     --color-surface-light: oklch(38% 0.01 var(--primary-hue));
     --color-surface-dark: oklch(27% 0.01 var(--primary-hue));
 
+    --color-on-tabletoptroll-green: oklch(27% 0.12 123.76);
     --color-tabletoptroll-green: oklch(0.67 0.12 123.76); /* #86a149 */
 
-    --color-header-background: #bba888;
+    --color-header-background: oklch(74% var(--neutral-ch)); /* #b9a987 */
 
     --color-jumpnav-surface: var(--color-surface-light);
 }

@@ -1,70 +1,66 @@
-<fieldset class="question" data-id="{{ include.question.id }}">
-  <header>
-    <h2>
-        {{ include.question.title }}
-    </h2>
-    <legend>
-        {{ include.question.description }}
-    </legend>
-  </header>
-  <div class="chooser">
-    <div class="chooserwrap desktoplabel">
-      <div class="choice1-label choice-label">
+<div id="{{ include.question.id }}" class="question" {{ include.html_attributes}}>
+  <h2>{{ include.question.title }}</h2>
+  <fieldset data-id="{{ include.question.id }}">
+    <legend>{{ include.question.description }}</legend>
+    <div class="chooser">
+      <div class="chooserwrap desktoplabel">
+        <div class="choice1-label choice-label" aria-hidden="true">
+          {{ include.question.option1 }}
+        </div>
+        <div class="choice2-label choice-label" aria-hidden="true">
+          {{ include.question.option2 }}
+        </div>
+      </div>
+
+      <div class="choice1-label choice-label mobillabel" aria-hidden="true">
         {{ include.question.option1 }}
       </div>
-      <div class="choice2-label choice-label">
+
+      <div class="options">
+        <label class="option" aria-label="Voll {{ include.question.option1 }}">
+          <input
+            type="radio"
+            name="{{ include.question.id }}"
+            value="-2" />
+            Voll
+        </label>
+        <label class="option" aria-label="Eher {{ include.question.option1 }}">
+          <input
+            type="radio"
+            name="{{ include.question.id }}"
+            value="-1" />
+            Eher
+        </label>
+        <label class="option" aria-label="Neutral">
+          <input
+            type="radio"
+            name="{{ include.question.id }}"
+            value="0" />
+            Neutral
+        </label>
+        <label class="option" aria-label="Eher {{ include.question.option2 }}">
+          <input
+            type="radio"
+            name="{{ include.question.id }}"
+            value="+1" />
+            Eher
+        </label>
+        <label class="option" aria-label="Voll {{ include.question.option2 }}">
+          <input
+            type="radio"
+            name="{{ include.question.id }}"
+            value="+2" />
+            Voll
+        </label>
+      </div>
+
+      <div class="choice2-label choice-label mobillabel" aria-hidden="true">
         {{ include.question.option2 }}
       </div>
     </div>
-
-    <div class="choice1-label choice-label mobillabel">
-      {{ include.question.option1 }}
-    </div>
-
-    <div class="options">
-      <label class="option">
-        <input
-          type="radio"
-          name="{{ include.question.id }}"
-          value="-2" />
-          Voll
-      </label>
-      <label class="option">
-        <input
-          type="radio"
-          name="{{ include.question.id }}"
-          value="-1" />
-          Eher
-      </label>
-      <label class="option">
-        <input
-          type="radio"
-          name="{{ include.question.id }}"
-          value="0" />
-          Neutral
-      </label>
-      <label class="option">
-        <input
-          type="radio"
-          name="{{ include.question.id }}"
-          value="+1" />
-          Eher
-      </label>
-      <label class="option">
-        <input
-          type="radio"
-          name="{{ include.question.id }}"
-          value="+2" />
-          Voll
-      </label>
-    </div>
-
-    <div class="choice2-label choice-label mobillabel">
-      {{ include.question.option2 }}
-    </div>
-  </div>
-  <label class="double">
-    <input name="double-{{ include.question.id }}" type="checkbox" />
-    Das ist mir besonders wichtig!
-  </label>
-</fieldset>
+    <label class="double">
+      <input name="double-{{ include.question.id }}" type="checkbox" />
+      Das ist mir besonders wichtig!
+    </label>
+  </fieldset>
+</div>

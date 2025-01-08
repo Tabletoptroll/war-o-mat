@@ -22,7 +22,7 @@ body{
     font-family: sans-serif;
 }
 
-body::after{
+body::before{
     --filter: sepia(20%) opacity(20%) drop-shadow(0px 20px 10px #000000);
 
     content: '';
@@ -46,14 +46,11 @@ body::after{
     grid-column: content;
     position: relative;
     width: 100%;
+    color: var(--color-on-surface);
 }
 
 
 /**Content LEFT**/
-.intro *{
- color: var(--color-1);
-}
-
 .intro h1{
     margin-bottom: 40px;
     font-size: 40px;
@@ -64,118 +61,80 @@ body::after{
 }
 
 #war-o-mat .wrap{
-    border: 5px solid var(--color-tabletoptroll-green);
-    border-radius: 20px;
+    --spacing: 16px;
+    border: 4px solid var(--color-tabletoptroll-green);
+    border-radius: var(--spacing);
     background: var(--color-surface-dark);
+    color: var(--color-on-surface);
     overflow: hidden;
 }
 
 .formbtn{
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    gap: inherit;
 }
 
-.formbtn .icon-button{
-    border: 4px solid var(--color-1);
-    background: #48413b;
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--color-on-surface);
-    width: fit-content;
-    height: fit-content;
-    border-radius: 30px;
-}
-
-.formbtn .icon-button:hover{
-    color: var(--color-tabletoptroll-green);
-}
-
-.formbtn #show-results-button{
-    border: 4px solid var(--color-tabletoptroll-green);
-    background: #48413b;
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    height: fit-content;
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--color-on-surface);
-    border-radius: 30px;
-}
-
-.formbtn #show-results-button:hover{
-    border: 4px solid #6B8236;
-    background: var(--color-tabletoptroll-green);
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    height: fit-content;
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--color-on-surface);
-}
-
-form .question{
+.question{
     display: grid;
-    gap: 32px;
-    border: none;
-    padding: 20px;
+    gap: var(--spacing);
+    padding: var(--spacing);
 }
 
-form .question h2{
+.question h2{
     font-size: 24px;
     font-weight: bold;
-    color: var(--color-on-surface);
-    margin-bottom: 20px;
+    margin-block-start: -.5ex; /* font dependent! */
 }
 
-form .question legend{
-    color: var(--color-on-surface);
+.question fieldset {
+    display: contents;
 }
 
-form .chooser .chooserwrap{
+.question legend {
+    max-width: 60ch;
+    padding: 0;
+    margin-block-end: var(--spacing);
+}
+
+.chooser {
+    --spacing: 8px;
+}
+
+.chooser .chooserwrap{
     display: flex;
+    
     justify-content: space-between;
-    position: relative;
+    align-items: center;
+    gap: .5em;
+
+    margin-block-end: var(--spacing);
 }
 
-form .chooserwrap::after{
+.chooserwrap::after{
     content: '';
     height: 1px;
-    background: #dcccab;
-    width: 100%;
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 23px;
+    background: currentColor;
+    flex-grow: 1;
 }
 
-form .chooser .choice-label{
-    font-size: 16px;
-    font-weight: initial;
-    color: var(--color-on-surface);
-    margin: 0px -10px;
-    padding: 10px;
-    background: var(--color-surface-dark);
-    width: fit-content;
-    position: relative;
-    z-index: 1;
+.chooserwrap :last-child {
+    order: 3;
 }
 
-form .double input{
-    width: 30px;
-    height: 30px;
-    border: 1px solid #dcccab;
-    margin-right: 10px;
+.chooser .choice-label {
+    font-weight: bold;
 }
 
-form .double{
-    color: var(--color-on-surface);
+.double input[type="checkbox"] {
+    accent-color: var(--color-tabletoptroll-green);
+    width: 24px;
+    height: 24px;
+}
+
+.double{
     display: flex;
+    gap: 8px;
     align-items: center;
     width: fit-content;
 }
@@ -183,7 +142,7 @@ form .double{
 form .options{
     display: flex;
     justify-content: space-between;
-    gap: 10px;
+    gap: var(--spacing);
 }
 
 form .options .option{
@@ -191,7 +150,7 @@ form .options .option{
     color: var(--color-on-surface);
     background: var(--color-surface-light);
     padding: 10px;
-    border: 4px solid var(--color-tabletoptroll-green);
+    border: 2px solid var(--color-tabletoptroll-green);
     display: flex;
     border-radius: 20px;
     width: 100%;
@@ -204,15 +163,8 @@ form .options .option input{
 
 form .options .option:hover, form .options .option:has(> input:checked){
     font-size: 16px;
-    font-weight: bold;
     color: var(--on-surface);
     background: var(--color-tabletoptroll-green);
-    padding: 10px;
-    border: 4px solid #6B8236;
-    display: flex;
-    min-width: initial;
-    min-height: initial;
-    border-radius: 20px;
 }
 
 .mobillabel{
@@ -230,20 +182,16 @@ form .options .option:hover, form .options .option:has(> input:checked){
 
     form .options{
         flex-direction: column;
-        border-left: 1px solid #dcccab;
-        padding-left: 10px;
-        margin: 0px;
-        margin-left: 20px;
+        border-left: 1px solid var(--color-on-surface);
+        padding-left: var(--spacing);
+        margin-left: calc(2 * var(--spacing));
     }
 
     .formbtn{
         flex-direction: column;
+        gap: inherit;
     }
-    .formbtn button{
-        margin-bottom: 20px;
-        align-items: center;
-        justify-content: center;
-    }
+
 }
 
 svg.icon {

@@ -45,11 +45,6 @@
         justify-self: center;
       }
 
-      #war-o-mat {
-        display: grid;
-        gap: inherit;
-      }
-
       #result h2 {
         margin-block-end: 1em;
       }
@@ -77,6 +72,20 @@
 
       .hidden {
         display: none;
+      }
+
+      .affiliate {
+          position: relative;
+      }
+
+      .affiliate::after {
+          content: '*Affiliate Link';
+          position: absolute;
+          bottom: -5ex;
+          right: 0;
+          font-size: xx-small;
+          font-weight: lighter;
+          color: var(--color-tabletoptroll-green);
       }
     </style>
   </head>

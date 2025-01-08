@@ -1,6 +1,6 @@
 #result h2{
     margin-bottom: 40px;
-    color: var(--color-1);
+    color: var(--color-on-surface);
     font-size: 40px;
     font-weight: bold;
 }
@@ -17,26 +17,17 @@
     font-size: 24px;
     margin-bottom: 20px;
     font-weight: bold;
+    margin-block-start: -.5ex; /* font dependent! */
 }
 
 .result-entry a.button {
-    margin-left: auto;
-    color: var(--color-1);
+    float: inline-end;
+    color: var(--color-on-tabletoptroll-green);
     background: var(--color-tabletoptroll-green);
     border: 5px solid #617531;
     font-weight: bolder;
 }
 
-.result-entry span{
-    font-size: 14px;
-    margin-left: auto;
-    font-weight: initial;
-    color: #85a144;
-    display: flex;
-    width: 100%;
-    justify-content: end;
-}
-
 .result-entry a:hover{
-    color: var(--color-1);
+    color: var(--color-on-tabletoptroll-green);
 }

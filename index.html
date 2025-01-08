@@ -16,7 +16,7 @@ See: https://jekyllrb.com/docs/front-matter/
         Beantworte die Fragen und finde heraus, welche Warhammer Age of Sigmar Fraktion am besten zu deiner Spielweise passt. 
       </p>
     </div>
-    <form id="war-o-mat" class="dark">
+    <form id="war-o-mat" class="dark" style="display: grid; gap: 16px;">
       <div class="wrap">
         <style>
             #question-list [role="tabpanel"]:not(:target) {
@@ -25,9 +25,7 @@ See: https://jekyllrb.com/docs/front-matter/
         </style>
         <div id="question-list" class="stacked-list">
           {% for attribute in site.data.csv.attributes %}
-            <div role="tabpanel" id="{{ attribute.id }}" >
-              {% include question.html question=attribute %}
-            </div>
+            {% include question.html question=attribute html_attributes='role="tabpanel"'%}
           {% endfor %}
         </div>
 
@@ -38,7 +36,7 @@ See: https://jekyllrb.com/docs/front-matter/
               <a title="{{ attribute.title }}" role="tab"
                 href="#{{ attribute.id }}" 
                 onclick="gotoQuestion('{{ attribute.id }}')"
-                tabindex={{ "0" if forloop.first else "-1"}}
+                tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
                 aria-label="{{ attribute.title }}" 
                 aria-controls="{{ attribute.id }}">
                 <svg class="indicator" aria-hidden="true">
@@ -523,8 +521,7 @@ See: https://jekyllrb.com/docs/front-matter/
   <article class="result-entry dark">
     <h3>{{ faction.full_name }}</h3>
     <p style="margin-block-end: 1em;">{{ faction.description }}</p>
-    <a class="button filled" href="{{faction.affiliate_link}}" target="_blank">Hier geht's zum Set!</a>
-    <span>*Affiliate Link</span>
+    <a class="button filled affiliate" href="{{faction.affiliate_link}}" target="_blank">Hier geht's zum Set!</a>
   </article>
 </template>
 {% endfor %}
