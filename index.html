@@ -108,6 +108,7 @@ See: https://jekyllrb.com/docs/front-matter/
             tab.dataset.done = checked;
             tab.checked = checked;
             tab.ariaSelected = active;
+            tab.setAttribute("tabindex", active ? 0 : -1);
           });
         }
 
